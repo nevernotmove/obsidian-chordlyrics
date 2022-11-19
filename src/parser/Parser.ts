@@ -1,12 +1,12 @@
 import {Line} from "./Line";
 import {Chunk} from "./Chunk";
-import {LineDetector} from "./LineDetector";
+import {LineTypeDetector} from "./LineTypeDetector";
 import {LineType} from "./LineType";
 
 export class Parser {
 
 	parse(text: string): Chunk[] {
-		const lines: Line[] = new LineDetector().getLines(text);
+		const lines: Line[] = new LineTypeDetector().getLines(text);
 		console.log("Lines:");
 		console.log(lines);
 

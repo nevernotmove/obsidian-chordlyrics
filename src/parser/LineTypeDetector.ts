@@ -1,23 +1,13 @@
 import {Line} from "./Line";
 import {LineType} from "./LineType";
 
-export class LineDetector {
+export class LineTypeDetector {
 
-	// TODO Detect lines for real
 	getLines(text: string): Line[] {
-		const lines: Line[] = [];
-
-		const textLines: string[] = text.split('\n');
-
-		textLines.forEach(textLine => {
-			const line: Line = this.addLineType(textLine);
-			lines.push(line);
-		})
-
-		return lines;
+		return text.split('\n').map(line => this.getTypedLine(line));
 	}
 
-	private addLineType(line: string): Line {
+	private getTypedLine(line: string): Line {
 
 		// Empty line
 		const trimmed = line.trim();
@@ -31,8 +21,7 @@ export class LineDetector {
 		// Chord line
 		const numSpaces = line.split(" ").length - 1;
 		const spaceToContentRatio = numSpaces / line.length;
-		console.log("Content ratio is", spaceToContentRatio, "for", line);
-		if (spaceToContentRatio > .4) return new Line(line, LineType.Chord);
+		if (spaceToContentRatio > .3) return new Line(line, LineType.Chord);
 
 		// Text line
 		return new Line(line, LineType.Text);
