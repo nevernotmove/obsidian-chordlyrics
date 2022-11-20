@@ -13,17 +13,36 @@ export class ChunkDetector {
 			const group: Chunk[] = [];
 			const line = lines[lineNumber];
 			
+			
 			switch (line.lineType) {
 				case LineType.Empty: group.push(new Chunk(ChunkType.Empty)); break;
 				case LineType.Header: group.push(new Chunk(ChunkType.Header, line.content)); break;
-				case LineType.Chord: group.push(...this.getSingleLineChordChunks(line.content)); break;
 				case LineType.Text: group.push(...this.getSingleLineWordChunks(line.content)); break;
+				case LineType.Chord: {
+					if (lineNumber + 1 < lines.length && lines[lineNumber + 1].lineType == LineType.Text) {
+						group.push(...this.getChordWithTextChunks(line.content, lines[lineNumber + 1].content));
+						lineNumber++;
+					}
+					else {
+						group.push(...this.getSingleLineChordChunks(line.content));
+					}
+					break;
+				}
 			}	
 			
 			lineNumber++;
 			chunks.push(group);
 		}
 		
+		return chunks;
+	}
+	
+	private getChordWithTextChunks(chordLine: string, textLine: string): Chunk[] {
+		const chunks: Chunk[] = [];
+		const chordMatches = chordLine.match(/\s*\S+\s*/g)
+		if (chordMatches != null) {
+			chordMatches.forEach(str => chunks.push(new Chunk(ChunkType.ChordWithText, str)));
+		}
 		return chunks;
 	}
 	

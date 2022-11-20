@@ -7,35 +7,35 @@ describe('Chunk detector', () => {
 	// TODO Add test for null or getting nothing back
 
 	describe.each`
-		    lineType                | lineContents           | groups | chunks    | chunkContents                   | chunkType                             
-		    ${["Empty"]}            | ${[""]}                | ${1}   | ${[1]}    | ${[[null]]}                     | ${[ChunkType.Empty]}                  
-			${["Header"]}           | ${["Header"]}          | ${1}   | ${[1]}    | ${[["Header"]]}                 | ${[ChunkType.Header]}                 
-			${["Chord"]}            | ${["C"]}               | ${1}   | ${[1]}    | ${[["C"]]}                      | ${[ChunkType.Chord]}                  
-			${["Chord"]}            | ${["C   E"]}           | ${1}   | ${[2]}    | ${[["C   ", "E"]]}              | ${[ChunkType.Chord]}                  
-			${["Chord"]}            | ${["  A   Em^7"]}      | ${1}   | ${[2]}    | ${[["  A   ", "Em^7"]]}         | ${[ChunkType.Chord]}                  
-			${["Chord"]}            | ${["B d F G7"]}        | ${1}   | ${[4]}    | ${[["B ", "d ", "F ", "G7"]]}   | ${[ChunkType.Chord]}                  
-			${["Text"]}             | ${["Hello"]}           | ${1}   | ${[1]}    | ${[["Hello"]]}                  | ${[ChunkType.Word]}                   
-			${["Text"]}             | ${["Hello there"]}     | ${1}   | ${[2]}    | ${[["Hello ", "there"]]}        | ${[ChunkType.Word]}                   
-			${["Text"]}             | ${["I'm over here!"]}  | ${1}   | ${[3]}    | ${[["I'm ", "over ", "here!"]]} | ${[ChunkType.Word]}                   
-			${["Empty", "Empty"]}   | ${["", ""]}            | ${2}   | ${[1, 1]} | ${[[null], [null]]}             | ${[ChunkType.Empty, ChunkType.Empty]} 
-			${["Empty", "Header"]}  | ${["", "Chorus"]}      | ${2}   | ${[1, 1]} | ${[[null], ["Chorus"]]}         | ${[ChunkType.Empty, ChunkType.Header]} 
-			${["Empty", "Chord"]}   | ${["", "F"]}           | ${2}   | ${[1, 1]} | ${[[null], ["F"]]}              | ${[ChunkType.Empty, ChunkType.Chord]} 
-			${["Empty", "Text"]}    | ${["", "Disco"]}       | ${2}   | ${[1, 1]} | ${[[null], ["Disco"]]}          | ${[ChunkType.Empty, ChunkType.Word]} 
-			${["Header", "Header"]} | ${["Verse", "Chorus"]} | ${2}   | ${[1, 1]} | ${[["Verse"], ["Chorus"]]}      | ${[ChunkType.Header, ChunkType.Header]} 
-			${["Header", "Empty"]}  | ${["Verse", ""]}       | ${2}   | ${[1, 1]} | ${[["Verse"], [null]]}          | ${[ChunkType.Header, ChunkType.Empty]} 
-			${["Header", "Chord"]}  | ${["Verse", "C#"]}     | ${2}   | ${[1, 1]} | ${[["Verse"], ["C#"]]}          | ${[ChunkType.Header, ChunkType.Chord]} 
-			${["Header", "Text"]}   | ${["Verse", "Once"]}   | ${2}   | ${[1, 1]} | ${[["Verse"], ["Once"]]}        | ${[ChunkType.Header, ChunkType.Word]} 
-			${["Text", "Text"]}     | ${["Again!", "Here!"]} | ${2}   | ${[1, 1]} | ${[["Again!"], ["Here!"]]}      | ${[ChunkType.Word, ChunkType.Word]} 
-			${["Text", "Empty"]}    | ${["Again!", ""]}      | ${2}   | ${[1, 1]} | ${[["Again!"], [null]]}         | ${[ChunkType.Word, ChunkType.Empty]} 
-			${["Text", "Header"]}   | ${["Again!", "Intro"]} | ${2}   | ${[1, 1]} | ${[["Again!"], ["Intro"]]}      | ${[ChunkType.Word, ChunkType.Header]} 
-			${["Text", "Chord"]}    | ${["Again!", "B-"]}    | ${2}   | ${[1, 1]} | ${[["Again!"], ["B-"]]}         | ${[ChunkType.Word, ChunkType.Chord]} 
-			${["Chord", "Chord"]}   | ${["Edim7", "B-"]}     | ${2}   | ${[1, 1]} | ${[["Edim7"], ["B-"]]}          | ${[ChunkType.Chord, ChunkType.Chord]} 
-			${["Chord", "Empty"]}   | ${["Edim7", ""]}       | ${2}   | ${[1, 1]} | ${[["Edim7"], [null]]}          | ${[ChunkType.Chord, ChunkType.Empty]} 
-			${["Chord", "Header"]}  | ${["Edim7", "Outro"]}  | ${2}   | ${[1, 1]} | ${[["Edim7"], ["Outro"]]}       | ${[ChunkType.Chord, ChunkType.Header]} 
-			${["Chord", "Text"]}    | ${["E7", "Hearts"]}    | ${1}   | ${[1]}    | ${[["E7"]]}                     | ${[ChunkType.ChordWithText]} 
+		    lineType                | lineContents           | groups | chunks    | chunkContents                   | chunkContents2                | chunkType                             
+		    ${["Empty"]}            | ${[""]}                | ${1}   | ${[1]}    | ${[[null]]}                     | ${[[null]]}                   | ${[ChunkType.Empty]}                  
+			${["Header"]}           | ${["Header"]}          | ${1}   | ${[1]}    | ${[["Header"]]}                 | ${[[null]]}                   | ${[ChunkType.Header]}                 
+			${["Chord"]}            | ${["C"]}               | ${1}   | ${[1]}    | ${[["C"]]}                      | ${[[null]]}                   | ${[ChunkType.Chord]}                  
+			${["Chord"]}            | ${["C   E"]}           | ${1}   | ${[2]}    | ${[["C   ", "E"]]}              | ${[[null, null]]}             | ${[ChunkType.Chord]}                  
+			${["Chord"]}            | ${["  A   Em^7"]}      | ${1}   | ${[2]}    | ${[["  A   ", "Em^7"]]}         | ${[[null, null]]}             | ${[ChunkType.Chord]}                  
+			${["Chord"]}            | ${["B d F G7"]}        | ${1}   | ${[4]}    | ${[["B ", "d ", "F ", "G7"]]}   | ${[[null, null, null, null]]} | ${[ChunkType.Chord]}                  
+			${["Text"]}             | ${["Hello"]}           | ${1}   | ${[1]}    | ${[["Hello"]]}                  | ${[[null]]}                   | ${[ChunkType.Word]}                   
+			${["Text"]}             | ${["Hello there"]}     | ${1}   | ${[2]}    | ${[["Hello ", "there"]]}        | ${[[null, null]]}             | ${[ChunkType.Word]}                   
+			${["Text"]}             | ${["I'm over here!"]}  | ${1}   | ${[3]}    | ${[["I'm ", "over ", "here!"]]} | ${[[null, null, null]]}       | ${[ChunkType.Word]}                   
+			${["Empty", "Empty"]}   | ${["", ""]}            | ${2}   | ${[1, 1]} | ${[[null], [null]]}             | ${[[null], [null]]}           | ${[ChunkType.Empty, ChunkType.Empty]} 
+			${["Empty", "Header"]}  | ${["", "Chorus"]}      | ${2}   | ${[1, 1]} | ${[[null], ["Chorus"]]}         | ${[[null], [null]]}           | ${[ChunkType.Empty, ChunkType.Header]} 
+			${["Empty", "Chord"]}   | ${["", "F"]}           | ${2}   | ${[1, 1]} | ${[[null], ["F"]]}              | ${[[null], [null]]}           | ${[ChunkType.Empty, ChunkType.Chord]} 
+			${["Empty", "Text"]}    | ${["", "Disco"]}       | ${2}   | ${[1, 1]} | ${[[null], ["Disco"]]}          | ${[[null], [null]]}           | ${[ChunkType.Empty, ChunkType.Word]} 
+			${["Header", "Header"]} | ${["Verse", "Chorus"]} | ${2}   | ${[1, 1]} | ${[["Verse"], ["Chorus"]]}      | ${[[null], [null]]}           | ${[ChunkType.Header, ChunkType.Header]} 
+			${["Header", "Empty"]}  | ${["Verse", ""]}       | ${2}   | ${[1, 1]} | ${[["Verse"], [null]]}          | ${[[null], [null]]}           | ${[ChunkType.Header, ChunkType.Empty]} 
+			${["Header", "Chord"]}  | ${["Verse", "C#"]}     | ${2}   | ${[1, 1]} | ${[["Verse"], ["C#"]]}          | ${[[null], [null]]}           | ${[ChunkType.Header, ChunkType.Chord]} 
+			${["Header", "Text"]}   | ${["Verse", "Once"]}   | ${2}   | ${[1, 1]} | ${[["Verse"], ["Once"]]}        | ${[[null], [null]]}           | ${[ChunkType.Header, ChunkType.Word]} 
+			${["Text", "Text"]}     | ${["Again!", "Here!"]} | ${2}   | ${[1, 1]} | ${[["Again!"], ["Here!"]]}      | ${[[null], [null]]}           | ${[ChunkType.Word, ChunkType.Word]} 
+			${["Text", "Empty"]}    | ${["Again!", ""]}      | ${2}   | ${[1, 1]} | ${[["Again!"], [null]]}         | ${[[null], [null]]}           | ${[ChunkType.Word, ChunkType.Empty]} 
+			${["Text", "Header"]}   | ${["Again!", "Intro"]} | ${2}   | ${[1, 1]} | ${[["Again!"], ["Intro"]]}      | ${[[null], [null]]}           | ${[ChunkType.Word, ChunkType.Header]} 
+			${["Text", "Chord"]}    | ${["Again!", "B-"]}    | ${2}   | ${[1, 1]} | ${[["Again!"], ["B-"]]}         | ${[[null], [null]]}           | ${[ChunkType.Word, ChunkType.Chord]} 
+			${["Chord", "Chord"]}   | ${["Edim7", "B-"]}     | ${2}   | ${[1, 1]} | ${[["Edim7"], ["B-"]]}          | ${[[null], [null]]}           | ${[ChunkType.Chord, ChunkType.Chord]} 
+			${["Chord", "Empty"]}   | ${["Edim7", ""]}       | ${2}   | ${[1, 1]} | ${[["Edim7"], [null]]}          | ${[[null], [null]]}           | ${[ChunkType.Chord, ChunkType.Empty]} 
+			${["Chord", "Header"]}  | ${["Edim7", "Outro"]}  | ${2}   | ${[1, 1]} | ${[["Edim7"], ["Outro"]]}       | ${[[null], [null]]}           | ${[ChunkType.Chord, ChunkType.Header]} 
+			${["Chord", "Text"]}    | ${["E7", "Hearts"]}    | ${1}   | ${[1]}    | ${[["E7"]]}                     | ${[["Hearts"]]}               | ${[ChunkType.ChordWithText]} 
 		`('for test $#',
 		//`('for test $# with $lines line(s) $lineTypeText with content(s) $chunkContents',
-		({lineType, lineContents, groups, chunks, chunkContents, chunkType}) => {
+		({lineType, lineContents, groups, chunks, chunkContents, chunkContents2, chunkType}) => {
 
 			const numLines = lineType.length;
 			describe(`with ${numLines} line(s) of type(s) ${lineType} with content(s) "${lineContents}"`, () => { // TODO Better line display
@@ -67,6 +67,10 @@ describe('Chunk detector', () => {
 
 								it(`set content to "${chunkContents[g][c]}"`, () => {
 									expect(outputChunks[g][c].content).toBe(chunkContents[g][c]);
+								});
+
+								it(`set content2 to "${chunkContents2[g][c]}"`, () => {
+									expect(outputChunks[g][c].content2).toBe(chunkContents2[g][c]);
 								});
 							});
 						}
