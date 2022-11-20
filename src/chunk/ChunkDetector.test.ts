@@ -7,97 +7,42 @@ describe('Chunk detector', () => {
 	// TODO Add test for null or getting nothing back
 	// TODO Simplyfy tests by parameterizing them
 	describe('for a single line', () => {
-		
-		describe('that is empty', () => {
-			const lines: Line[] = [
-				new Line("", LineType.Empty)
-			]
-			const chunks = new ChunkDetector().getChunks(lines);
 
-			it('creates a single chunk group', () => {
-				expect(chunks.length).toBe(1);
+		describe.each`
+		    lineTypeText | lineType           | chunkType           | numGroups | numChunks | content          | chunkContents
+			${"Empty"}   | ${LineType.Empty}  | ${ChunkType.Empty}  | ${1}      | ${1}      | ${""}            | ${[null]}
+			${"Header"}  | ${LineType.Header} | ${ChunkType.Header} | ${1}      | ${1}      | ${"Header"}      | ${["Header"]}
+			${"Chord"}   | ${LineType.Chord}  | ${ChunkType.Chord}  | ${1}      | ${1}      | ${"C"}           | ${["C"]}
+			${"Chord"}   | ${LineType.Chord}  | ${ChunkType.Chord}  | ${1}      | ${2}      | ${"C   E"}       | ${["C   ", "E"]}
+			${"Chord"}   | ${LineType.Chord}  | ${ChunkType.Chord}  | ${1}      | ${2}      | ${"  A   Em^7"}  | ${["  A   ", "Em^7"]}
+			${"Chord"}   | ${LineType.Chord}  | ${ChunkType.Chord}  | ${1}      | ${4}      | ${"B d F G7"}    | ${["B ", "d ", "F ", "G7"]}
+			${"Text"}    | ${LineType.Text}   | ${ChunkType.Word}   | ${1}      | ${1}      | ${"Hello"}       | ${["Hello"]}
+			${"Text"}    | ${LineType.Text}   | ${ChunkType.Word}   | ${1}      | ${2}      | ${"Hello there"} | ${["Hello ", "there"]}
+        `('with type $lineTypeText and content "$content"',
+			({_, lineType, chunkType, numGroups, numChunks, content, chunkContents}) => {
+
+				const lines: Line[] = [new Line(content, lineType)]
+				const chunks = new ChunkDetector().getChunks(lines);
+
+				it(`creates ${numGroups} group(s)`, () => {
+					expect(chunks.length).toBe(numGroups);
+				});
+
+				it(`creates ${numChunks} chunk(s)`, () => {
+					expect(chunks[0].length).toBe(numChunks);
+				});
+
+				for (let i = 0; i < chunkContents.length; i++) {
+					describe(`creates chunk for "${chunkContents[i]}"`, () => {
+						it(`with type ${ChunkType[chunkType]}`, () => {
+							expect(chunks[0][i].chunkType).toBe(chunkType);
+						});
+
+						it(`with content "${chunkContents[i]}"`, () => {
+							expect(chunks[0][i].content).toBe(chunkContents[i]);
+						});
+					});
+				}
 			});
-
-			it('creates a single chunk in group', () => {
-				expect(chunks[0].length).toBe(1);
-			});
-
-			it('creates chunk with type Empty', () => {
-				expect(chunks[0][0].chunkType).toBe(ChunkType.Empty);
-			});
-
-			it('creates chunk with content set to null', () => {
-				expect(chunks[0][0].content).toBeNull();
-			});
-		});
-
-		describe('that contains one chord', () => {
-			const lines: Line[] = [
-				new Line("C", LineType.Chord)
-			]
-			const chunks = new ChunkDetector().getChunks(lines);
-
-			it('creates a single chunk group', () => {
-				expect(chunks.length).toBe(1);
-			});
-
-			it('creates a single chunk in group', () => {
-				expect(chunks[0].length).toBe(1);
-			});
-
-			it('creates chunk with type Chord', () => {
-				expect(chunks[0][0].chunkType).toBe(ChunkType.Chord);
-			});
-
-			it('creates chunk with content set to chord', () => {
-				expect(chunks[0][0].content).toBe("C");
-			});
-		});
-
-		describe('that contains one word', () => {
-			const lines: Line[] = [
-				new Line("Hello", LineType.Text)
-			]
-			const chunks = new ChunkDetector().getChunks(lines);
-
-			it('creates a single chunk group', () => {
-				expect(chunks.length).toBe(1);
-			});
-
-			it('creates a single chunk in group', () => {
-				expect(chunks[0].length).toBe(1);
-			});
-
-			it('creates chunk with type Word', () => {
-				expect(chunks[0][0].chunkType).toBe(ChunkType.Word);
-			});
-
-			it('creates chunk with content set to word', () => {
-				expect(chunks[0][0].content).toBe("Hello");
-			});
-		});
-
-		describe('that contains a header', () => {
-			const lines: Line[] = [
-				new Line("Title", LineType.Header)
-			]
-			const chunks = new ChunkDetector().getChunks(lines);
-
-			it('creates a single chunk group', () => {
-				expect(chunks.length).toBe(1);
-			});
-
-			it('creates a single chunk in group', () => {
-				expect(chunks[0].length).toBe(1);
-			});
-
-			it('creates chunk with type Header', () => {
-				expect(chunks[0][0].chunkType).toBe(ChunkType.Header);
-			});
-
-			it('creates chunk with content set to header', () => {
-				expect(chunks[0][0].content).toBe("Title");
-			});
-		});
 	});
 });
