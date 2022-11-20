@@ -6,72 +6,98 @@ import {ChunkType} from "./ChunkType";
 describe('Chunk detector', () => {
 	// TODO Add test for null or getting nothing back
 	// TODO Simplyfy tests by parameterizing them
-	describe('for a single empty line', () => {
-		const lines: Line[] = [
-			new Line("", LineType.Empty)
-		]
-		const chunks = new ChunkDetector().getChunks(lines);
-
-		it('creates a single chunk group', () => {
-			expect(chunks.length).toBe(1);
-		});
-
-		it('creates a single chunk in group', () => {
-			expect(chunks[0].length).toBe(1);
-		});
-
-		it('creates chunk with type Empty', () => {
-			expect(chunks[0][0].chunkType).toBe(ChunkType.Empty);
-		});
+	describe('for a single line', () => {
 		
-		it('creates chunk with content set to null', () => {
-			expect(chunks[0][0].content).toBeNull();
-		});
-	});
+		describe('that is empty', () => {
+			const lines: Line[] = [
+				new Line("", LineType.Empty)
+			]
+			const chunks = new ChunkDetector().getChunks(lines);
 
-	describe('for a single line with one chord', () => {
-		const lines: Line[] = [
-			new Line("C", LineType.Chord)
-		]
-		const chunks = new ChunkDetector().getChunks(lines);
+			it('creates a single chunk group', () => {
+				expect(chunks.length).toBe(1);
+			});
 
-		it('creates a single chunk group', () => {
-			expect(chunks.length).toBe(1);
-		});
+			it('creates a single chunk in group', () => {
+				expect(chunks[0].length).toBe(1);
+			});
 
-		it('creates a single chunk in group', () => {
-			expect(chunks[0].length).toBe(1);
-		});
+			it('creates chunk with type Empty', () => {
+				expect(chunks[0][0].chunkType).toBe(ChunkType.Empty);
+			});
 
-		it('creates chunk with type Chord', () => {
-			expect(chunks[0][0].chunkType).toBe(ChunkType.Chord);
-		});
-		
-		it('creates chunk with content set to chord', () => {
-			expect(chunks[0][0].content).toBe("C");
-		});
-	});
-
-	describe('for a single line with one word', () => {
-		const lines: Line[] = [
-			new Line("Hello", LineType.Text)
-		]
-		const chunks = new ChunkDetector().getChunks(lines);
-
-		it('creates a single chunk group', () => {
-			expect(chunks.length).toBe(1);
+			it('creates chunk with content set to null', () => {
+				expect(chunks[0][0].content).toBeNull();
+			});
 		});
 
-		it('creates a single chunk in group', () => {
-			expect(chunks[0].length).toBe(1);
+		describe('that contains one chord', () => {
+			const lines: Line[] = [
+				new Line("C", LineType.Chord)
+			]
+			const chunks = new ChunkDetector().getChunks(lines);
+
+			it('creates a single chunk group', () => {
+				expect(chunks.length).toBe(1);
+			});
+
+			it('creates a single chunk in group', () => {
+				expect(chunks[0].length).toBe(1);
+			});
+
+			it('creates chunk with type Chord', () => {
+				expect(chunks[0][0].chunkType).toBe(ChunkType.Chord);
+			});
+
+			it('creates chunk with content set to chord', () => {
+				expect(chunks[0][0].content).toBe("C");
+			});
 		});
 
-		it('creates chunk with type Word', () => {
-			expect(chunks[0][0].chunkType).toBe(ChunkType.Word);
+		describe('that contains one word', () => {
+			const lines: Line[] = [
+				new Line("Hello", LineType.Text)
+			]
+			const chunks = new ChunkDetector().getChunks(lines);
+
+			it('creates a single chunk group', () => {
+				expect(chunks.length).toBe(1);
+			});
+
+			it('creates a single chunk in group', () => {
+				expect(chunks[0].length).toBe(1);
+			});
+
+			it('creates chunk with type Word', () => {
+				expect(chunks[0][0].chunkType).toBe(ChunkType.Word);
+			});
+
+			it('creates chunk with content set to word', () => {
+				expect(chunks[0][0].content).toBe("Hello");
+			});
 		});
 
-		it('creates chunk with content set to word', () => {
-			expect(chunks[0][0].content).toBe("Hello");
+		describe('that contains a header', () => {
+			const lines: Line[] = [
+				new Line("Title", LineType.Header)
+			]
+			const chunks = new ChunkDetector().getChunks(lines);
+
+			it('creates a single chunk group', () => {
+				expect(chunks.length).toBe(1);
+			});
+
+			it('creates a single chunk in group', () => {
+				expect(chunks[0].length).toBe(1);
+			});
+
+			it('creates chunk with type Header', () => {
+				expect(chunks[0][0].chunkType).toBe(ChunkType.Header);
+			});
+
+			it('creates chunk with content set to header', () => {
+				expect(chunks[0][0].content).toBe("Title");
+			});
 		});
 	});
 });
