@@ -1,13 +1,13 @@
-export class Chunk {
-	header: string;
-	chord: string;
-	text: string;
-	lineId: number;
+import {ChunkType} from "./ChunkType";
 
-	constructor(header: string, chord: string, text: string, lineId: number) {
-		this.header = header;
-		this.chord = chord;
-		this.text = text;
-		this.lineId = lineId;
+export class Chunk {
+	chunkType: ChunkType;
+	content: string | null;
+	content2: string | null;
+
+	constructor(chunkType: ChunkType, content?: string,  content2?: string) {
+		this.chunkType = chunkType;
+		this.content = content ? content : null;
+		this.content2 = content2 ? content2 : null;
 	}
 }

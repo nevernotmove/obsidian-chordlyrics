@@ -1,62 +1,70 @@
 import {Line} from "../line/Line";
 import {Chunk} from "./Chunk";
+import {ChunkType} from "./ChunkType";
 import {LineType} from "../line/LineType";
 
 export class ChunkDetector {
 
-	getChunks(lines: Line[]): Chunk[] {
-		const chunks: Chunk[] = [];
+	public getChunks(lines: Line[]): Chunk[][] {
+		const chunks: Chunk[][] = [];
 
-		let lineId = 0;
+		let lineNumber = 0;
+		while (lineNumber < lines.length) {
+			const group: Chunk[] = [];
+			const line = lines[lineNumber];
+			
+			switch (line.lineType) {
+				case LineType.Empty: group.push(new Chunk(ChunkType.Empty)); break;
+				case LineType.Chord: group.push(new Chunk(ChunkType.Chord, line.content)); break;
+				case LineType.Text: group.push(new Chunk(ChunkType.Word, line.content)); break;
+				case LineType.Header: group.push(new Chunk(ChunkType.Header, line.content)); break;
+			}	
+			
+			lineNumber++;
+			chunks.push(group);
+		}
+		
+		return chunks;
+	}
+	
+	/*
+	getChunks(lines: Line[]): Chunk[][] {
+		const chunks: Chunk[][] = [];
+
 		let i = 0;
 		while (i < lines.length) {
 			const line = lines[i];
 
 			if (line.lineType == LineType.Header) {
-				const chunk: Chunk = {
-					header: line.content,
-					chord: "",
-					text: "",
-					lineId: lineId
-				};
+				const chunk = new Chunk(ChunkType.Header, line.content);
 				chunks.push(chunk);
 				i++;
 			} else if (line.lineType == LineType.Empty) {
-				const chunk: Chunk = {
-					header: "",
-					chord: "",
-					text: " ",
-					lineId: lineId
-				};
+				const chunk = new Chunk(ChunkType.Empty, line.content);
 				chunks.push(chunk);
 				i++;
 			} else if (line.lineType == LineType.Text) {
-				const chunk: Chunk = {
-					header: "",
-					chord: "",
-					text: line.content,
-					lineId: lineId
-				};
+				const chunk = new Chunk(ChunkType.Word, line.content);
+				 TODO Word is not the same as text line
 				chunks.push(chunk);
 				i++;
 			} else if (line.lineType == LineType.Chord && (i + 1) < lines.length && lines[i+1].lineType == LineType.Text) {
-				const lineChunks: Chunk[] = this.getPairChunks(line.content, lines[i + 1].content, lineId);
+				const lineChunks: Chunk[] = this.getPairChunks(line.content, lines[i + 1].content);
 				chunks.push(...lineChunks);
 				i += 2;
 			} else if (line.lineType == LineType.Chord) {
-				const lineChunks: Chunk[] = this.getChordChunks(line.content, lineId);
+				const lineChunks: Chunk[] = this.getChordChunks(line.content);
 				chunks.push(...lineChunks);
 				i++;
 			} else {
 				i++;
 			}
-			lineId++;
 		}
 
 		return chunks;
 	}
 
-	private getChordChunks(chordLine: string, lineId: number): Chunk[] {
+	private getChordChunks(chordLine: string): Chunk[] {
 		const chunks: Chunk[] = [];
 
 		const regex = /\S+/g;
@@ -78,13 +86,13 @@ export class ChunkDetector {
 			}
 			
 			const chordChunk = chordLine.substring(chord.index, chunkEndIndex);	
-			this.addChunk(chunks, chordChunk, "", lineId);
+			this.addChunk(chunks, chordChunk, "", lineId, ChunkType.Chord);
 		}
 
 		return chunks;
 	}
 
-	private getPairChunks(chordLine: string, textLine: string, lineId: number): Chunk[] {
+	private getPairChunks(chordLine: string, textLine: string): Chunk[] {
 		const chunks: Chunk[] = [];
 
 		// Add whitespaces to match chord line
@@ -100,7 +108,7 @@ export class ChunkDetector {
 		const firstChord = chords[0];
 		if (firstChord.index != undefined && firstChord.index > 0) {
 			// TODO Better use null for chord? How?
-			this.addChunk(chunks, " ", textLine.substring(0, firstChord.index), lineId);
+			this.addChunk(chunks, " ", textLine.substring(0, firstChord.index), ChunkType.Word);
 		}
 
 		// Create chord chunks
@@ -119,14 +127,15 @@ export class ChunkDetector {
 			}
 			const textChunk = textLine.substring(chord.index, chunkEndIndex);
 
-			this.addChunk(chunks, chord[0], textChunk, lineId);
+			this.addChunk(chunks, chord[0], textChunk, ChunkType.ChordWithText);
 		}
 
 		return chunks;
 	}
 
-	private addChunk(chunks: Chunk[], chord: string, text: string, lineId: number) {
+	private addChunk(chunks: Chunk[], chord: string, text: string, chunkType: ChunkType) {
 		const chunk: Chunk = {
+			chunkType: chunkType,
 			header: "",
 			chord: chord,
 			text: text,
@@ -134,4 +143,5 @@ export class ChunkDetector {
 		};
 		chunks.push(chunk);
 	}
+	*/
 }
