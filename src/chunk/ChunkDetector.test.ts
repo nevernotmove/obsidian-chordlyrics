@@ -32,10 +32,11 @@ describe('Chunk detector', () => {
 			${["Chord", "Chord"]}   | ${["Edim7", "B-"]}     | ${2}   | ${[1, 1]} | ${[["Edim7"], ["B-"]]}          | ${[ChunkType.Chord, ChunkType.Chord]} 
 			${["Chord", "Empty"]}   | ${["Edim7", ""]}       | ${2}   | ${[1, 1]} | ${[["Edim7"], [null]]}          | ${[ChunkType.Chord, ChunkType.Empty]} 
 			${["Chord", "Header"]}  | ${["Edim7", "Outro"]}  | ${2}   | ${[1, 1]} | ${[["Edim7"], ["Outro"]]}       | ${[ChunkType.Chord, ChunkType.Header]} 
+			${["Chord", "Text"]}    | ${["E7", "Hearts"]}    | ${1}   | ${[1]}    | ${[["E7"]]}                     | ${[ChunkType.ChordWithText]} 
 		`('for test $#',
 		//`('for test $# with $lines line(s) $lineTypeText with content(s) $chunkContents',
 		({lineType, lineContents, groups, chunks, chunkContents, chunkType}) => {
-			
+
 			const numLines = lineType.length;
 			describe(`with ${numLines} line(s) of type(s) ${lineType} with content(s) "${lineContents}"`, () => { // TODO Better line display
 
@@ -52,7 +53,7 @@ describe('Chunk detector', () => {
 
 				// TODO Stop if there are not groups
 				// For each group
-				for (let g = 0; g < outputChunks.length; g++) {
+				for (let g = 0; g < groups; g++) {
 					describe(`for group ${g} of type ${ChunkType[chunkType[g]]} with content(s) "${chunkContents[g]}"`, () => {
 						it(`creates ${chunks[g]} chunk(s)`, () => {
 							expect(outputChunks[g].length).toBe(chunks[g]);
