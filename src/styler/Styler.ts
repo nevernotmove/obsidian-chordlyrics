@@ -1,4 +1,4 @@
-import {Chunk} from "../parser/Chunk";
+import {Chunk} from "../chunk/Chunk";
 
 export class Styler {
 

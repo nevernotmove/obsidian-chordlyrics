@@ -1,7 +1,7 @@
 import {Line} from "./Line";
 import {LineType} from "./LineType";
 
-export class LineTypeDetector {
+export class LineDetector {
 
 	getLines(text: string): Line[] {
 		return text.split('\n').map(line => this.getTypedLine(line));

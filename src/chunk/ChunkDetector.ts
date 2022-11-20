@@ -1,22 +1,15 @@
-import {Line} from "./Line";
+import {Line} from "../line/Line";
 import {Chunk} from "./Chunk";
-import {LineTypeDetector} from "./LineTypeDetector";
-import {LineType} from "./LineType";
+import {LineType} from "../line/LineType";
 
-export class Parser {
+export class ChunkDetector {
 
-	parse(text: string): Chunk[] {
-		const lines: Line[] = new LineTypeDetector().getLines(text);
-		console.log("Lines:");
-		console.log(lines);
-
+	getChunks(lines: Line[]): Chunk[] {
 		const chunks: Chunk[] = [];
-		// TODO Actually group lines dynamically before chunking
 
 		let lineId = 0;
 		let i = 0;
 		while (i < lines.length) {
-			// TODO Check line types and adjust behaviour
 			const line = lines[i];
 
 			if (line.lineType == LineType.Header) {
@@ -47,7 +40,7 @@ export class Parser {
 				chunks.push(chunk);
 				i++;
 			} else if (line.lineType == LineType.Chord && (i + 1) < lines.length && lines[i+1].lineType == LineType.Text) {
-				const lineChunks: Chunk[] = this.getChunks(line.content, lines[i + 1].content, lineId);
+				const lineChunks: Chunk[] = this.getPairChunks(line.content, lines[i + 1].content, lineId);
 				chunks.push(...lineChunks);
 				i += 2;
 			} else if (line.lineType == LineType.Chord) {
@@ -55,15 +48,10 @@ export class Parser {
 				chunks.push(...lineChunks);
 				i++;
 			} else {
-				// TODO add dangling line based on type
-				console.log("What?")
 				i++;
 			}
 			lineId++;
 		}
-
-		console.log("Detected chunks:(" + chunks.length + ")");
-		console.log(chunks);
 
 		return chunks;
 	}
@@ -73,9 +61,6 @@ export class Parser {
 
 		const regex = /\S+/g;
 		const chords = [...chordLine.matchAll(regex)];
-
-		// TODO Check if chords array is empty
-		// TODO handle only chord or only text line
 
 		// Create chord chunks
 		for (let i = 0; i < chords.length; i++) {
@@ -99,7 +84,7 @@ export class Parser {
 		return chunks;
 	}
 
-	private getChunks(chordLine: string, textLine: string, lineId: number): Chunk[] {
+	private getPairChunks(chordLine: string, textLine: string, lineId: number): Chunk[] {
 		const chunks: Chunk[] = [];
 
 		// Add whitespaces to match chord line
@@ -110,9 +95,6 @@ export class Parser {
 
 		const regex = /\S+/g;
 		const chords = [...chordLine.matchAll(regex)];
-
-		// TODO Check if chords array is empty
-		// TODO handle only chord or only text line
 
 		// Create chunk without chord if first chord does not start at 0
 		const firstChord = chords[0];

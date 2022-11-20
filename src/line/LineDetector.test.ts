@@ -1,4 +1,4 @@
-import {LineTypeDetector} from "./LineTypeDetector";
+import {LineDetector} from "./LineDetector";
 import {Line} from "./Line";
 import {LineType} from "./LineType";
 
@@ -38,7 +38,7 @@ const expected: Line[] = [
 
 describe('Line detector', () => {
 
-	const lines: Line[] = new LineTypeDetector().getLines(input);
+	const lines: Line[] = new LineDetector().getLines(input);
 
 	it('detects number of lines', () => {
 		expect(lines.length).toBe(expected.length);

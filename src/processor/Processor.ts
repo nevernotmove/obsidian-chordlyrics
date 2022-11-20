@@ -1,19 +1,14 @@
-import {Chunk} from "../parser/Chunk";
-import {Parser} from "../parser/Parser";
+import {ChunkDetector} from "../chunk/ChunkDetector";
 import {Styler} from "../styler/Styler";
+import {LineDetector} from "../line/LineDetector";
 
 export class Processor {
 
 	static get() {
 		return function (text: string, html: HTMLElement) {
-			
-			// Parse text into chunks containing chords and text under it
-			const chunks: Chunk[] = new Parser().parse(text);
-
-			// Create a styled HTML representation
-			const styled: HTMLElement = new Styler().style(chunks);
-
-			// Insert into HTML
+			const lines = new LineDetector().getLines(text);
+			const chunks = new ChunkDetector().getChunks(lines);
+			const styled = new Styler().style(chunks);
 			html.appendChild(styled);
 		};
 	}

@@ -1,4 +1,4 @@
-import {Parser} from "./Parser";
+import {ChunkDetector} from "./ChunkDetector";
 import {Chunk} from "./Chunk";
 
 const text: string = `C                   Gadd9  D
@@ -13,13 +13,13 @@ Last line
 `;
 */
 
-describe('Parser', () => {
+describe('Chunk detector', () => {
 
-	test('detects chunks correctly', () => {
+	it('detects chunks correctly', () => {
 		console.log("Input:");
 		console.log(text);
 
-		const chunks: Chunk[] = new Parser().parse(text);
+		const chunks: Chunk[] = new ChunkDetector().getChunks(text);
 		
 		expect(true).toBe(false);	
 	});
