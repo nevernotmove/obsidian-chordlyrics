@@ -9,15 +9,16 @@ describe('Chunk detector', () => {
 	describe('for a single line', () => {
 
 		describe.each`
-		    lineTypeText | lineType           | chunkType           | numGroups | numChunks | content          | chunkContents
-			${"Empty"}   | ${LineType.Empty}  | ${ChunkType.Empty}  | ${1}      | ${1}      | ${""}            | ${[null]}
-			${"Header"}  | ${LineType.Header} | ${ChunkType.Header} | ${1}      | ${1}      | ${"Header"}      | ${["Header"]}
-			${"Chord"}   | ${LineType.Chord}  | ${ChunkType.Chord}  | ${1}      | ${1}      | ${"C"}           | ${["C"]}
-			${"Chord"}   | ${LineType.Chord}  | ${ChunkType.Chord}  | ${1}      | ${2}      | ${"C   E"}       | ${["C   ", "E"]}
-			${"Chord"}   | ${LineType.Chord}  | ${ChunkType.Chord}  | ${1}      | ${2}      | ${"  A   Em^7"}  | ${["  A   ", "Em^7"]}
-			${"Chord"}   | ${LineType.Chord}  | ${ChunkType.Chord}  | ${1}      | ${4}      | ${"B d F G7"}    | ${["B ", "d ", "F ", "G7"]}
-			${"Text"}    | ${LineType.Text}   | ${ChunkType.Word}   | ${1}      | ${1}      | ${"Hello"}       | ${["Hello"]}
-			${"Text"}    | ${LineType.Text}   | ${ChunkType.Word}   | ${1}      | ${2}      | ${"Hello there"} | ${["Hello ", "there"]}
+		    lineTypeText | lineType           | chunkType           | numGroups | numChunks | content             | chunkContents
+			${"Empty"}   | ${LineType.Empty}  | ${ChunkType.Empty}  | ${1}      | ${1}      | ${""}               | ${[null]}
+			${"Header"}  | ${LineType.Header} | ${ChunkType.Header} | ${1}      | ${1}      | ${"Header"}         | ${["Header"]}
+			${"Chord"}   | ${LineType.Chord}  | ${ChunkType.Chord}  | ${1}      | ${1}      | ${"C"}              | ${["C"]}
+			${"Chord"}   | ${LineType.Chord}  | ${ChunkType.Chord}  | ${1}      | ${2}      | ${"C   E"}          | ${["C   ", "E"]}
+			${"Chord"}   | ${LineType.Chord}  | ${ChunkType.Chord}  | ${1}      | ${2}      | ${"  A   Em^7"}     | ${["  A   ", "Em^7"]}
+			${"Chord"}   | ${LineType.Chord}  | ${ChunkType.Chord}  | ${1}      | ${4}      | ${"B d F G7"}       | ${["B ", "d ", "F ", "G7"]}
+			${"Text"}    | ${LineType.Text}   | ${ChunkType.Word}   | ${1}      | ${1}      | ${"Hello"}          | ${["Hello"]}
+			${"Text"}    | ${LineType.Text}   | ${ChunkType.Word}   | ${1}      | ${2}      | ${"Hello there"}    | ${["Hello ", "there"]}
+			${"Text"}    | ${LineType.Text}   | ${ChunkType.Word}   | ${1}      | ${3}      | ${"I'm over here!"} | ${["I'm ", "over ", "here!"]}
         `('with type $lineTypeText and content "$content"',
 			({_, lineType, chunkType, numGroups, numChunks, content, chunkContents}) => {
 
