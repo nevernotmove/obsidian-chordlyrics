@@ -2,6 +2,7 @@ import {Line} from "../line/Line";
 import {Chunk} from "./Chunk";
 import {ChunkType} from "./ChunkType";
 import {LineType} from "../line/LineType";
+import {text} from "stream/consumers";
 
 export class ChunkDetector {
 
@@ -12,7 +13,6 @@ export class ChunkDetector {
 		while (lineNumber < lines.length) {
 			const group: Chunk[] = [];
 			const line = lines[lineNumber];
-			
 			
 			switch (line.lineType) {
 				case LineType.Empty: group.push(new Chunk(ChunkType.Empty)); break;
@@ -39,11 +39,65 @@ export class ChunkDetector {
 	
 	private getChordWithTextChunks(chordLine: string, textLine: string): Chunk[] {
 		const chunks: Chunk[] = [];
-		const chordMatches = chordLine.match(/\s*\S+\s*/g)
-		if (chordMatches != null) {
-			chordMatches.forEach(str => chunks.push(new Chunk(ChunkType.ChordWithText, str)));
+		
+		if (chordLine.length > textLine.length) {
+			const diff = chordLine.length - textLine.length;
+			textLine += " ".repeat(diff);
 		}
+		else if (textLine.length > chordLine.length) {
+			const diff = textLine.length - chordLine.length;
+			chordLine += " ".repeat(diff);
+		}
+
+		const chordMatches = chordLine.matchAll(/\S+/g);
+		const wordMatches = textLine.matchAll(/\S+/g);
+
+		let chordsLeft = true;
+		let wordsLeft = true;
+		let lastCut = 0;
+		let chordIndex = chordMatches.next().value.index;
+		let wordIndex = wordMatches.next().value.index;
+
+		while (chordsLeft || wordsLeft) {
+			if (chordsLeft && (chordIndex <= wordIndex || !wordsLeft)) {
+				if (this.cutPossible(textLine, chordIndex)) {
+					const chunk = this.cut(lastCut, chordIndex, chordLine, textLine);
+					chunks.push(chunk);
+					lastCut = chordIndex;
+				}
+				const chord = chordMatches.next().value;
+				chord ? chordIndex = chord.index : chordsLeft = false;
+			} else if (wordsLeft) {
+				if (this.cutPossible(chordLine, wordIndex)) {
+					const chunk = this.cut(lastCut, wordIndex, chordLine, textLine);
+					chunks.push(chunk);
+					lastCut = wordIndex;
+				}
+				const word = wordMatches.next().value;
+				word ? wordIndex = word.index : wordsLeft = false;
+			}
+		}
+
+		const chunk = this.cut(lastCut, chordLine.length, chordLine, textLine);
+		chunks.push(chunk);
+				
 		return chunks;
+	}
+
+	private cutPossible(str: string, index: number): boolean {
+		const charLeftOfCut = str.charAt(index - 1);
+		const charRightOfCut = str.charAt(index);
+		return index !== 0 && (charLeftOfCut === " " || charRightOfCut === " ");
+	}
+
+	private cut(beginning: number, end: number, chordLine: string, textLine: string): Chunk {
+		const chordPart = chordLine.substring(beginning, end);
+		const textPart = textLine.substring(beginning, end);
+		console.log("Cut from " + beginning + " to " + end);
+		console.log("Chord part: '" + chordPart + "'");
+		console.log("Text  part: '" + textPart + "'");
+		console.log("\n");
+		return new Chunk(ChunkType.ChordWithText, chordPart, textPart);
 	}
 	
 	private getSingleLineChordChunks(line: string): Chunk[] {
