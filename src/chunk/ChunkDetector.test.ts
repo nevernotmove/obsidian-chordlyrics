@@ -36,6 +36,7 @@ describe('Chunk detector', () => {
 			${["Chord", "Text"]}    | ${["E7 A", "Hearts"]}     | ${1}   | ${[1]}    | ${[["E7 A  "]]}                 | ${[["Hearts"]]}               | ${[ChunkType.ChordWithText]}
 			${["Chord", "Text"]}    | ${["E7 A B", "Hearts"]}   | ${1}   | ${[1]}    | ${[["E7 A B"]]}                 | ${[["Hearts"]]}               | ${[ChunkType.ChordWithText]}
 			${["Chord", "Text"]}    | ${["E7 A B C", "Hearts"]} | ${1}   | ${[2]}    | ${[["E7 A B ", "C"]]}           | ${[["Hearts ", " "]]}         | ${[ChunkType.ChordWithText]}
+			${["Chord", "Text"]}    | ${[" A", "Hearts"]}       | ${1}   | ${[1]}    | ${[[" A    "]]}                 | ${[["Hearts"]]}               | ${[ChunkType.ChordWithText]}
 		`('for test $#',
 		//`('for test $# with $lines line(s) $lineTypeText with content(s) $chunkContents',
 		({lineType, lineContents, groups, chunks, chunkContents, chunkContents2, chunkType}) => {
