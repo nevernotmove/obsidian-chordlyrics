@@ -2,7 +2,7 @@ import {Chunk} from "../chunk/Chunk";
 
 export class Styler {
 
-    style(chunks: Chunk[][]) {
+    getHtml(chunks: Chunk[][]) {
 		const root = document.createElement('pre')
 		root.addClass('root');
 		// TODO Make your class names unique

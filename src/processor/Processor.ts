@@ -8,7 +8,7 @@ export class Processor {
 		return function (text: string, html: HTMLElement) {
 			const lines = new LineDetector().getLines(text);
 			const chunks = new ChunkDetector().getChunks(lines);
-			const styled = new Styler().style(chunks);
+			const styled = new Styler().getHtml(chunks);
 			html.appendChild(styled);
 		};
 	}
