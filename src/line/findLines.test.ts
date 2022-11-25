@@ -1,6 +1,6 @@
 import {Line} from "./Line";
 import {LineType} from "./LineType";
-import getLines from "./getLines";
+import findLines from "./findLines";
 
 const input: string = `
 C   B   Gadd9
@@ -38,7 +38,7 @@ const expected: Line[] = [
 
 describe('Line detector', () => {
 
-	const lines: Line[] = getLines(input);
+	const lines: Line[] = findLines(input);
 
 	it('detects number of lines', () => {
 		expect(lines.length).toBe(expected.length);

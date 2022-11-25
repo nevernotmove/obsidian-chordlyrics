@@ -4,7 +4,7 @@ import {ChunkType} from "./ChunkType";
 import {LineType} from "../line/LineType";
 import findTwoLineChunks from "./findTwoLineChunks";
 
-export default function getChunks(lines: Line[]): Chunk[][] {
+export default function findChunks(lines: Line[]): Chunk[][] {
 	const nextLineIsText = () => lineNumber + 1 < lines.length && lines[lineNumber + 1].lineType == LineType.Text;
 	function handleChordLine(group: Chunk[], line: Line) {
 		if (nextLineIsText()) {

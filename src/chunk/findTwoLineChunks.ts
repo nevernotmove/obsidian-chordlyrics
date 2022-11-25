@@ -9,7 +9,7 @@ export default function findTwoLineChunks(line1: string, line2: string): Chunk[]
 function getWordIndices(text: string): number[] {
 	const indices: number[] = [];
 	for (const word of text.matchAll(/\S+/g)) {
-		if (word.index != null) indices.push(word.index);	
+		if (word.index != null) indices.push(word.index);
 	}
 	return indices;
 }
@@ -38,7 +38,7 @@ function findChunks(line1: string, line1Indices: number[], line2: string, line2I
 	return chunks;
 }
 
-function matchLengthWithWhitespace(chordLine: string, textLine: string)  {
+function matchLengthWithWhitespace(chordLine: string, textLine: string) {
 	const diff = Math.abs(chordLine.length - textLine.length);
 	if (chordLine.length > textLine.length) textLine += " ".repeat(diff);
 	else chordLine += " ".repeat(diff);

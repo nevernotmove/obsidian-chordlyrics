@@ -1,7 +1,7 @@
 import {Line} from "./Line";
 import {LineType} from "./LineType";
 
-export default function getLines(text: string): Line[] {
+export default function findLines(text: string): Line[] {
 	return text.split('\n').map(line => getTypedLine(line));
 }
 

@@ -1,7 +1,7 @@
 import {Plugin} from 'obsidian';
-import getLines from "./src/line/getLines";
-import getChunks from "./src/chunk/getChunks";
-import getHtml from "./src/styler/Styler";
+import findLines from "./src/line/findLines";
+import findChunks from "./src/chunk/findChunks";
+import getHtml from "./src/ouput/getHtml";
 
 export default class SongBuddy extends Plugin {
 
@@ -13,8 +13,8 @@ export default class SongBuddy extends Plugin {
 
 	private getProcessor() {
 		return function (text: string, html: HTMLElement) {
-			const lines = getLines(text);
-			const chunks = getChunks(lines);
+			const lines = findLines(text);
+			const chunks = findChunks(lines);
 			const styled = getHtml(chunks);
 			html.appendChild(styled);
 		};
