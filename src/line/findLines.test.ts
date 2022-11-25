@@ -60,6 +60,4 @@ describe('Line detector', () => {
 	it.each(data)('detects line $#s content as "$expectedContent"', (line) => {
 		expect(line.actualContent).toBe(line.expectedContent);
 	});
-
-	// TODO Add test to detect each chord
 });

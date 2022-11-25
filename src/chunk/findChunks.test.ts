@@ -4,8 +4,6 @@ import {ChunkType} from "./ChunkType";
 import findChunks from "./findChunks";
 
 describe('Chunk detector', () => {
-	// TODO Add test for null or getting nothing back
-
 	describe.each`
 			lineType                | lineContents              | groups | chunks    | chunkContents                   | chunkContents2                | chunkType                             
 			${["Empty"]}            | ${[""]}                   | ${1}   | ${[1]}    | ${[[null]]}                     | ${[[null]]}                   | ${[ChunkType.Empty]}                  
@@ -42,7 +40,7 @@ describe('Chunk detector', () => {
 		({lineType, lineContents, groups, chunks, chunkContents, chunkContents2, chunkType}) => {
 
 			const numLines = lineType.length;
-			describe(`with ${numLines} line(s) of type(s) ${lineType} with content(s) "${lineContents}"`, () => { // TODO Better line display
+			describe(`with ${numLines} line(s) of type(s) ${lineType} with content(s) "${lineContents}"`, () => {
 
 				const inputLines: Line[] = [];
 				for (let i = 0; i < numLines; i++) {
@@ -55,8 +53,6 @@ describe('Chunk detector', () => {
 					expect(outputChunks.length).toBe(groups);
 				});
 
-				// TODO Stop if there are not groups
-				// For each group
 				for (let g = 0; g < groups; g++) {
 					describe(`for group ${g} of type ${ChunkType[chunkType[g]]} with content(s) "${chunkContents[g]}"`, () => {
 						it(`creates ${chunks[g]} chunk(s)`, () => {
