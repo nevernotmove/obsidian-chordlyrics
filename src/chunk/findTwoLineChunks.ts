@@ -1,16 +1,12 @@
 import {Chunk} from "./Chunk";
 import {ChunkType} from "./ChunkType";
 
-export default function getChordWithTextChunks(chordLine: string, textLine: string): Chunk[] {
-	[chordLine, textLine] = matchLengthWithWhitespace(chordLine, textLine);
-	return getChunksForSameLengthLines(chordLine, textLine);
+export default function findTwoLineChunks(line1: string, line2: string): Chunk[] {
+	[line1, line2] = matchLengthWithWhitespace(line1, line2);
+	return findChunks(line1, getWordIndices(line1), line2, getWordIndices(line2));
 }
 
-function getChunksForSameLengthLines(line1: string, line2: string) {
-	return cutChunks(line1, getWordStartIndices(line1), line2, getWordStartIndices(line2));
-}
-
-function getWordStartIndices(text: string): number[] {
+function getWordIndices(text: string): number[] {
 	const indices: number[] = [];
 	for (const word of text.matchAll(/\S+/g)) {
 		if (word.index != null) indices.push(word.index);	
@@ -18,7 +14,7 @@ function getWordStartIndices(text: string): number[] {
 	return indices;
 }
 
-function cutChunks(line1: string, line1Indices: number[], line2: string, line2Indices: number[]) {
+function findChunks(line1: string, line1Indices: number[], line2: string, line2Indices: number[]) {
 	const chunks: Chunk[] = [];
 	let lastCut = 0;
 	let index1 = line1Indices.shift();

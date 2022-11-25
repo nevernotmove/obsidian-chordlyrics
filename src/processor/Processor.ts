@@ -1,4 +1,4 @@
-import {ChunkDetector} from "../chunk/ChunkDetector";
+import {ChunkDetector} from "../chunk/getChunks";
 import {Styler} from "../styler/Styler";
 import {LineDetector} from "../line/LineDetector";
 

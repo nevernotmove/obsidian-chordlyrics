@@ -1,7 +1,7 @@
 import {Line} from "../line/Line";
 import {LineType} from "../line/LineType";
-import {ChunkDetector} from "./ChunkDetector";
 import {ChunkType} from "./ChunkType";
+import getChunks from "./getChunks";
 
 describe('Chunk detector', () => {
 	// TODO Add test for null or getting nothing back
@@ -49,7 +49,7 @@ describe('Chunk detector', () => {
 					const lineTypeEnum: LineType = (<any>LineType)[lineType[i]]; // Get enum from text
 					inputLines.push(new Line(lineContents[i], lineTypeEnum));
 				}
-				const outputChunks = new ChunkDetector().getChunks(inputLines);
+				const outputChunks = getChunks(inputLines);
 
 				it(`creates ${groups} group(s)`, () => {
 					expect(outputChunks.length).toBe(groups);
