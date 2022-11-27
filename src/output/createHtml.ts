@@ -1,45 +1,32 @@
 import {Chunk} from "../chunk/Chunk";
 import {ChunkType} from "../chunk/ChunkType";
 
-const el = (tag: string, content: string | null, ...classes: string[]): HTMLElement => {
+const el = (tag: string, children: Node[], ...classes: string[]): HTMLElement => {
 	const el = document.createElement(tag);
-	if (content != null) el.appendChild(document.createTextNode(content));
+	el.append(...children)
 	el.addClasses(classes);
 	return el;
 };
 
-const div = (content: string | null, ...classes: string[]): HTMLElement => el('div', content, ...classes);
-const pre = (...classes: string[]): HTMLElement => el('pre', null, ...classes);
+const div = (children: Node[], ...classes: string[]): HTMLElement => el('div', children, ...classes);
+const text = (content: string | null): Text => document.createTextNode(content || "");
+const stack = (chord: HTMLElement, text: HTMLElement): HTMLElement => div([chord, text], 'stack');
+const chord = (content: string | null): HTMLElement => div([text(content)], 'chord', 'cm-strong');
+const header = (content: string | null): HTMLElement => div([text(content)], 'header');
+const word = (content: string | null): HTMLElement => div([text(content)], 'word');
+const line = (children: HTMLElement[]): HTMLElement => div(children, 'line');
+const chordWithText = (c: string | null, t: string | null): HTMLElement => stack(chord(c), word(t));
 
-const stack = (chord: HTMLElement, text: HTMLElement): HTMLElement => {
-	const stack = div(null, 'stack');
-	stack.append(chord, text);
-	return stack;
-};
-
-const header = (content: string | null): HTMLElement => div(content, 'header');
-const chord = (content: string | null): HTMLElement => div(content, 'chord', 'cm-strong');
-const text = (content: string | null): HTMLElement => div(content, 'text');
-const line = (): HTMLElement => div(null, 'line');
-const chordWithText = (c: string| null, t: string | null): HTMLElement => stack(chord(c), text(t));
-
-const mapChunk = (chunk: Chunk): HTMLElement => {
+const chunks = (chunk: Chunk): HTMLElement => {
 	switch (chunk.chunkType) {
-		case ChunkType.Empty: return text(chunk.content);
+		case ChunkType.Empty: return word(chunk.content);
 		case ChunkType.Header: return header(chunk.content);
-		case ChunkType.Word: return text(chunk.content);
+		case ChunkType.Word: return word(chunk.content);
 		case ChunkType.Chord: return chord(chunk.content);
 		case ChunkType.ChordWithText: return chordWithText(chunk.content, chunk.content2);
-	}	
-}
-const mapGroup = (group: Chunk[]): HTMLElement => {
-	let l = line()
-	group.forEach(chunk => l.append(mapChunk(chunk)));
-	return l;
+	}
 }
 
-export default (groups: Chunk[][]): HTMLElement => {
-	const root = pre('root');
-	root.append(...groups.map(g => mapGroup(g)));
-	return root;
-}
+const lines = (group: Chunk[]): HTMLElement => line(group.map(c => chunks(c)));
+const root = (lines: HTMLElement[]): HTMLElement => el('pre', lines, 'root');
+export default (groups: Chunk[][]): HTMLElement => root(groups.map(g => lines(g)));
