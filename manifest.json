@@ -3,8 +3,8 @@
 	"name": "Song Buddy",
 	"version": "0.1.0",
 	"minAppVersion": "1.0.3",
-	"description": "Display chord names over lyrics",
-	"author": "ydowe",
+	"description": "Display chord names over lyrics, supporting line breaks",
+	"author": "nevernotmove",
 	"authorUrl": "https://obsidian.md",
 	"isDesktopOnly": false
 }
