@@ -7,11 +7,11 @@ export default class SongBuddy extends Plugin {
 
 	readonly CODE_BLOCK_TRIGGER = "songbuddy";
 
-	onload() {
+	onload(): void {
 		this.registerMarkdownCodeBlockProcessor(this.CODE_BLOCK_TRIGGER, this.getProcessor());
 	}
 
-	private getProcessor() {
+	private getProcessor(): (text: string, html: HTMLElement) => void {
 		return function (text: string, html: HTMLElement) {
 			const lines = findLines(text);
 			const chunks = findChunks(lines);

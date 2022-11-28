@@ -12,7 +12,6 @@ const chord = new Chunk(ChunkType.Chord, 'chord');
 const word = new Chunk(ChunkType.Word, 'word');
 const chordText = new Chunk(ChunkType.ChordWithText, 'chord', 'text');
 
-//const wordDiv = Object.assign(document.createElement('div'), {classList: ["word"]});
 const emptyDiv = {tagName: 'div', content: '', classList: ['word']};
 const headerDiv = {tagName: 'div', content: 'header', classList: ['header']};
 const chordDiv = {tagName: 'div', content: 'chord', classList: ['chord', 'cm-strong']};
@@ -22,12 +21,24 @@ const chordTextDiv = {tagName: 'div', content: undefined, classList: ['stack']};
 describe('createHtml', () => {
 
 	describe.each`
-		id   | input            | expected
-		${1} | ${[[empty]]}     | ${[[emptyDiv]]}
-		${2} | ${[[header]]}    | ${[[headerDiv]]}
-		${3} | ${[[chord]]}     | ${[[chordDiv]]}
-		${4} | ${[[word]]}      | ${[[wordDiv]]}
-		${5} | ${[[chordText]]} | ${[[chordTextDiv]]}
+		id    | input                                               | expected
+		${1}  | ${[[empty]]}                                        | ${[[emptyDiv]]}
+		${2}  | ${[[header]]}                                       | ${[[headerDiv]]}
+		${3}  | ${[[chord]]}                                        | ${[[chordDiv]]}
+		${4}  | ${[[word]]}                                         | ${[[wordDiv]]}
+		${5}  | ${[[chordText]]}                                    | ${[[chordTextDiv]]}
+		${6}  | ${[[chord, chord]]}                                 | ${[[chordDiv, chordDiv]]}
+		${7}  | ${[[word, word]]}                                   | ${[[wordDiv, wordDiv]]}
+		${8}  | ${[[chordText, chordText]]}                         | ${[[chordTextDiv, chordTextDiv]]}
+		${9}  | ${[[empty], [empty]]}                               | ${[[emptyDiv], [emptyDiv]]}
+		${10} | ${[[word], [word]]}                                 | ${[[wordDiv], [wordDiv]]}
+		${11} | ${[[header], [header]]}                             | ${[[headerDiv], [headerDiv]]}
+		${12} | ${[[chord], [chord]]}                               | ${[[chordDiv], [chordDiv]]}
+		${13} | ${[[chordText], [chordText]]}                       | ${[[chordTextDiv], [chordTextDiv]]}
+		${14} | ${[[word, word], [chordText]]}                      | ${[[wordDiv, wordDiv], [chordTextDiv]]}
+		${15} | ${[[word, word, word], [chordText, chordText]]}     | ${[[wordDiv, wordDiv, wordDiv], [chordTextDiv, chordTextDiv]]}
+		${16} | ${[[chord, chord, chord], [empty], [header]]}       | ${[[chordDiv, chordDiv, chordDiv], [emptyDiv], [headerDiv]]}
+		${17} | ${[[chord, chord], [empty], [header], [chordText]]} | ${[[chordDiv, chordDiv], [emptyDiv], [headerDiv], [chordTextDiv]]}
 	`('for test $id', ({_, input, expected}) => {
 
 		const actual: HTMLElement = createHtml(input);
