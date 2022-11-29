@@ -25,13 +25,13 @@ function findChunks(line1: string, line1Indices: number[], line2: string, line2I
 				chunks.push(cut(lastCut, index1, line1, line2));
 				lastCut = index1;
 			}
-			index1 = line1Indices.shift()!;
+			index1 = line1Indices.shift();
 		} else if (index2 != undefined) {
 			if (cutPossible(line1, index2)) {
 				chunks.push(cut(lastCut, index2, line1, line2));
 				lastCut = index2;
 			}
-			index2 = line2Indices.shift()!;
+			index2 = line2Indices.shift();
 		}
 	}
 	chunks.push(cut(lastCut, line1.length, line1, line2));

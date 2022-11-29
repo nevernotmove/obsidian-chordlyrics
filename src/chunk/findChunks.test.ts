@@ -43,7 +43,7 @@ describe('findChunks', () => {
 
 				const inputLines: Line[] = [];
 				for (let i = 0; i < numLines; i++) {
-					const lineTypeEnum: LineType = (<any>LineType)[lineType[i]]; // Get enum from text
+					const lineTypeEnum: LineType = (<never>LineType)[lineType[i]]; // Get enum from text
 					inputLines.push(new Line(lineContents[i], lineTypeEnum));
 				}
 				const outputChunks = findChunks(inputLines);

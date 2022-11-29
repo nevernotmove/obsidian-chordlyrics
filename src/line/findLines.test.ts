@@ -2,7 +2,7 @@ import {Line} from "./Line";
 import {LineType} from "./LineType";
 import findLines from "./findLines";
 
-const input: string = `
+const input = `
 C   B   Gadd9
 Car Boy Grenades from the sky
   Gm    A-  D E        Em-
