@@ -1,7 +1,7 @@
 {
-	"name": "song-buddy",
+	"name": "chordlyrics",
 	"version": "0.1.0",
-	"description": "Display chords above lyrics",
+	"description": "Display chord names over lyrics. Supports line wrapping, section headers and auto-detection.",
 	"main": "main.js",
 	"scripts": {
 		"dev": "node esbuild.config.mjs",

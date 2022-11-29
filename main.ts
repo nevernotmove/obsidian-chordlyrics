@@ -3,9 +3,9 @@ import findLines from "./src/line/findLines";
 import findChunks from "./src/chunk/findChunks";
 import createHtml from "./src/output/createHtml";
 
-export default class SongBuddy extends Plugin {
+export default class ChordLyrics extends Plugin {
 
-	private readonly CODE_BLOCK_TRIGGER = "songbuddy";
+	private readonly CODE_BLOCK_TRIGGER = "chordlyrics";
 
 	public onload(): void {
 		this.registerMarkdownCodeBlockProcessor(this.CODE_BLOCK_TRIGGER, this.getProcessor());
