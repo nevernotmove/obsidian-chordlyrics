@@ -5,9 +5,9 @@ import createHtml from "./src/output/createHtml";
 
 export default class SongBuddy extends Plugin {
 
-	readonly CODE_BLOCK_TRIGGER = "songbuddy";
+	private readonly CODE_BLOCK_TRIGGER = "songbuddy";
 
-	onload(): void {
+	public onload(): void {
 		this.registerMarkdownCodeBlockProcessor(this.CODE_BLOCK_TRIGGER, this.getProcessor());
 	}
 

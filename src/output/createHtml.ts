@@ -3,8 +3,8 @@ import {ChunkType} from "../chunk/ChunkType";
 
 const el = (tag: string, children: Node[], ...classes: string[]): HTMLElement => {
 	const el = document.createElement(tag);
-	el.append(...children)
-	classes.forEach(c => el.classList.add(c))
+	el.append(...children);
+	classes.forEach(c => el.classList.add(c));
 	return el;
 };
 

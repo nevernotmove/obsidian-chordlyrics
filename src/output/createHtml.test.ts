@@ -46,7 +46,7 @@ describe('createHtml', () => {
 		describe('returns root element', () => {
 
 			it(`of type HTMLElement`, () => {
-				expect(actual).toBeInstanceOf(HTMLElement)
+				expect(actual).toBeInstanceOf(HTMLElement);
 			});
 
 			it(`with tag 'pre'`, () => {
@@ -74,7 +74,7 @@ describe('createHtml', () => {
 				const expectedLine = expected[g];
 
 				it(`is of type HTMLElement`, () => {
-					expect(actualLine).toBeInstanceOf(HTMLElement)
+					expect(actualLine).toBeInstanceOf(HTMLElement);
 				});
 
 				const expectedTag = 'div';
@@ -130,7 +130,7 @@ describe('createHtml', () => {
 							it(`child 1 is of type HTMLElement`, () => {
 								expect(actualChild.children[0]).toBeInstanceOf(HTMLElement);
 							});
-							
+
 							it(`child 2 is of type HTMLElement`, () => {
 								expect(actualChild.children[1]).toBeInstanceOf(HTMLElement);
 							});
@@ -154,11 +154,11 @@ describe('createHtml', () => {
 							it(`child 1 has class 'chord'`, () => {
 								expect(actualChild.children[0].classList.contains('chord')).toBeTruthy();
 							});
-							
+
 							it(`child 1 has class 'cm-strong'`, () => {
 								expect(actualChild.children[0].classList.contains('cm-strong')).toBeTruthy();
 							});
-							
+
 							it(`child 2 has class 'word'`, () => {
 								expect(actualChild.children[1].classList.contains('word')).toBeTruthy();
 							});
@@ -166,7 +166,7 @@ describe('createHtml', () => {
 							it(`child 1 has content ${chordText.content}`, () => {
 								expect(actualChild.children[0].textContent).toBe(chordText.content);
 							});
-							
+
 							it(`child 2 has content ${chordText.content2}`, () => {
 								expect(actualChild.children[1].textContent).toBe(chordText.content2);
 							});
