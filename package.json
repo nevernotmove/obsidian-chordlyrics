@@ -1,5 +1,5 @@
 {
-	"name": "chordlyrics",
+	"name": "chord-lyrics",
 	"version": "0.1.0",
 	"description": "Display chord names over lyrics. Supports line wrapping, section headers and auto-detection.",
 	"main": "main.js",
