@@ -1,6 +1,4 @@
-:root {
-	--chord-color: var(--bold-color);
-}
+
 
 .root {
 	background-color: var(--code-background);
@@ -30,8 +28,7 @@
 }
 
 .chord {
-	font-weight: var(--bold-weight);
-	color: var(--chord-color);
+	color: var(--chord-color, var(--strong-color, var(--accent-strong, var(--bold-color)))) !important;
 }
 
 .word {

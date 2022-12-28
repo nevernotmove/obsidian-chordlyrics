@@ -43,6 +43,11 @@ export default class ChordLyrics extends Plugin {
 	}
 
 	private applySettings() {
-		document.documentElement.style.setProperty('--chord-color', this.settings.customChordColor)
+		if (this.settings.enableCustomChordColor) {
+			document.documentElement.style.setProperty('--chord-color', this.settings.customChordColor);
+		}
+		else {
+			document.documentElement.style.removeProperty('--chord-color');
+		}
 	}
 }

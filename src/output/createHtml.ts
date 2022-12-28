@@ -14,7 +14,7 @@ const text = (content: string): Text => document.createTextNode(content);
 
 const stack = (chord: HTMLElement, text: HTMLElement): HTMLElement => div([chord, text], 'stack');
 
-const chord = (content: string): HTMLElement => div([text(content)], 'chord');
+const chord = (content: string): HTMLElement => div([text(content)], 'chord', 'cm-strong');
 
 const header = (content: string): HTMLElement => div([text(content)], 'header');
 
