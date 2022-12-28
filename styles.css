@@ -26,6 +26,8 @@
 }
 
 .chord {
+	font-weight: var(--bold-weight);
+	color: var(--bold-color);
 }
 
 .word {

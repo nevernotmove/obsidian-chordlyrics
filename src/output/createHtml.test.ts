@@ -14,7 +14,7 @@ const chordText = new Chunk(ChunkType.ChordWithText, 'chord', 'text');
 
 const emptyDiv = {tagName: 'div', content: '', classList: ['word']};
 const headerDiv = {tagName: 'div', content: 'header', classList: ['header']};
-const chordDiv = {tagName: 'div', content: 'chord', classList: ['chord', 'cm-strong']};
+const chordDiv = {tagName: 'div', content: 'chord', classList: ['chord']};
 const wordDiv = {tagName: 'div', content: 'word', classList: ['word']};
 const chordTextDiv = {tagName: 'div', content: undefined, classList: ['stack']};
 
@@ -143,8 +143,8 @@ describe('createHtml', () => {
 								expect(actualChild.children[1].tagName.toLowerCase()).toBe('div');
 							});
 
-							it(`child 1 has 2 classes`, () => {
-								expect(actualChild.children[0].classList.length).toBe(2);
+							it(`child 1 has 1 classes`, () => {
+								expect(actualChild.children[0].classList.length).toBe(1);
 							});
 
 							it(`child 2 has 1 class`, () => {
@@ -153,10 +153,6 @@ describe('createHtml', () => {
 
 							it(`child 1 has class 'chord'`, () => {
 								expect(actualChild.children[0].classList.contains('chord')).toBeTruthy();
-							});
-
-							it(`child 1 has class 'cm-strong'`, () => {
-								expect(actualChild.children[0].classList.contains('cm-strong')).toBeTruthy();
 							});
 
 							it(`child 2 has class 'word'`, () => {
