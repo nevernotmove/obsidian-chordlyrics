@@ -1,3 +1,7 @@
+:root {
+	--chord-color: var(--bold-color);
+}
+
 .root {
 	background-color: var(--code-background);
 	white-space: pre;	
@@ -27,7 +31,7 @@
 
 .chord {
 	font-weight: var(--bold-weight);
-	color: var(--bold-color);
+	color: var(--chord-color);
 }
 
 .word {

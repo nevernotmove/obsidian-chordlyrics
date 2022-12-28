@@ -3,11 +3,7 @@ import findLines from "./src/line/findLines";
 import findChunks from "./src/chunk/findChunks";
 import createHtml from "./src/output/createHtml";
 import {ChordLyricsSettingsTab} from './src/settings/ChordLyricsSettingsTab';
-
-interface ChordLyricsSettings {
-	enableCustomChordColor: boolean,
-	customChordColor: string,
-}
+import ChordLyricsSettings from './src/settings/ChordLyricsSettings';
 
 const DEFAULT_SETTINGS: Partial<ChordLyricsSettings> = {
 	enableCustomChordColor: false,
@@ -24,6 +20,7 @@ export default class ChordLyrics extends Plugin {
 	public async onload(): Promise<void> {
 		await this.loadSettings();
 		this.addSettingTab(new ChordLyricsSettingsTab(this.app, this));
+		this.applySettings();
 		this.registerMarkdownCodeBlockProcessor(this.CODE_BLOCK_TRIGGER, this.getProcessor());
 	}
 
@@ -33,6 +30,7 @@ export default class ChordLyrics extends Plugin {
 
 	async saveSettings() {
 		await this.saveData(this.settings);
+		this.applySettings();
 	}
 
 	private getProcessor(): (text: string, html: HTMLElement) => void {
@@ -42,5 +40,9 @@ export default class ChordLyrics extends Plugin {
 			const styled = createHtml(chunks);
 			html.appendChild(styled);
 		};
+	}
+
+	private applySettings() {
+		document.documentElement.style.setProperty('--chord-color', this.settings.customChordColor)
 	}
 }
