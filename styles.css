@@ -1,7 +1,7 @@
 
 
 .root {
-	background-color: var(--code-background);
+	background-color: var(--custom-background-color, var(--code-background)) !important;
 	white-space: pre;	
 	display: flex;
 	flex-direction: column;
@@ -15,7 +15,7 @@
 }
 
 .header {
-	background-color: var(--background-primary);
+	background-color: var(--custom-header-color, var(--background-primary)) !important;
 	padding: .5em;
 	margin-top: .5em;
 	width: 100%;
@@ -28,7 +28,7 @@
 }
 
 .chord {
-	color: var(--chord-color, var(--strong-color, var(--accent-strong, var(--bold-color)))) !important;
+	color: var(--custom-chord-color, var(--strong-color, var(--accent-strong, var(--bold-color)))) !important;
 }
 
 .word {

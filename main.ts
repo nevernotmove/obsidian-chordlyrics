@@ -8,6 +8,10 @@ import ChordLyricsSettings from './src/settings/ChordLyricsSettings';
 const DEFAULT_SETTINGS: Partial<ChordLyricsSettings> = {
 	enableCustomChordColor: false,
 	customChordColor: '#000000',
+	enableCustomBackgroundColor: false,
+	customBackgroundColor: '#777777',
+	enableCustomHeaderColor: false,
+	customHeaderColor: '#ffffff',
 };
 
 export default class ChordLyrics extends Plugin {
@@ -44,10 +48,19 @@ export default class ChordLyrics extends Plugin {
 
 	private applySettings() {
 		if (this.settings.enableCustomChordColor) {
-			document.documentElement.style.setProperty('--chord-color', this.settings.customChordColor);
+			document.documentElement.style.setProperty('--custom-chord-color', this.settings.customChordColor);
+		} else {
+			document.documentElement.style.removeProperty('--custom-chord-color');
 		}
-		else {
-			document.documentElement.style.removeProperty('--chord-color');
+		if (this.settings.enableCustomBackgroundColor) {
+			document.documentElement.style.setProperty('--custom-background-color', this.settings.customBackgroundColor);
+		} else {
+			document.documentElement.style.removeProperty('--custom-background-color');
+		}
+		if (this.settings.enableCustomHeaderColor) {
+			document.documentElement.style.setProperty('--custom-header-color', this.settings.customHeaderColor);
+		} else {
+			document.documentElement.style.removeProperty('--custom-header-color');
 		}
 	}
 }
