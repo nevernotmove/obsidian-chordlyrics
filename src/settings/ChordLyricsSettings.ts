@@ -3,6 +3,10 @@ export default interface ChordLyricsSettings {
 	customChordColor: string,
 	enableCustomBackgroundColor: boolean,
 	customBackgroundColor: string,
-	enableCustomHeaderColor: boolean,
-	customHeaderColor: string,
+	enableCustomHeaderBackgroundColor: boolean,
+	customHeaderBackgroundColor: string,
+	enableCustomHeaderTextColor: boolean,
+	customHeaderTextColor: string,
+	enableCustomLyricsColor: boolean,
+	customLyricsColor: string,
 }

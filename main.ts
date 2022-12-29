@@ -10,8 +10,12 @@ const DEFAULT_SETTINGS: Partial<ChordLyricsSettings> = {
 	customChordColor: '#000000',
 	enableCustomBackgroundColor: false,
 	customBackgroundColor: '#777777',
-	enableCustomHeaderColor: false,
-	customHeaderColor: '#ffffff',
+	enableCustomHeaderBackgroundColor: false,
+	customHeaderBackgroundColor: '#ffffff',
+	enableCustomHeaderTextColor: false,
+	customHeaderTextColor: '#ffffff',
+	enableCustomLyricsColor: false,
+	customLyricsColor: '#ffffff',
 };
 
 export default class ChordLyrics extends Plugin {
@@ -57,10 +61,20 @@ export default class ChordLyrics extends Plugin {
 		} else {
 			document.documentElement.style.removeProperty('--custom-background-color');
 		}
-		if (this.settings.enableCustomHeaderColor) {
-			document.documentElement.style.setProperty('--custom-header-color', this.settings.customHeaderColor);
+		if (this.settings.enableCustomHeaderBackgroundColor) {
+			document.documentElement.style.setProperty('--custom-header-background-color', this.settings.customHeaderBackgroundColor);
 		} else {
-			document.documentElement.style.removeProperty('--custom-header-color');
+			document.documentElement.style.removeProperty('--custom-header-background-color');
+		}
+		if (this.settings.enableCustomHeaderTextColor) {
+			document.documentElement.style.setProperty('--custom-header-text-color', this.settings.customHeaderTextColor);
+		} else {
+			document.documentElement.style.removeProperty('--custom-header-text-color');
+		}
+		if (this.settings.enableCustomLyricsColor) {
+			document.documentElement.style.setProperty('--custom-lyrics-color', this.settings.customLyricsColor);
+		} else {
+			document.documentElement.style.removeProperty('--custom-lyrics-color');
 		}
 	}
 }
