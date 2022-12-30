@@ -2,43 +2,33 @@ import {Plugin} from 'obsidian';
 import findLines from "./src/line/findLines";
 import findChunks from "./src/chunk/findChunks";
 import createHtml from "./src/output/createHtml";
-import {ChordLyricsSettingsTab} from './src/settings/ChordLyricsSettingsTab';
-import ChordLyricsSettings from './src/settings/ChordLyricsSettings';
-
-const DEFAULT_SETTINGS: Partial<ChordLyricsSettings> = {
-	enableCustomChordColor: false,
-	customChordColor: '#000000',
-	enableCustomBackgroundColor: false,
-	customBackgroundColor: '#777777',
-	enableCustomHeaderBackgroundColor: false,
-	customHeaderBackgroundColor: '#ffffff',
-	enableCustomHeaderTextColor: false,
-	customHeaderTextColor: '#ffffff',
-	enableCustomLyricsColor: false,
-	customLyricsColor: '#ffffff',
-};
+import {SettingsTab} from './src/settings/SettingsTab';
+import Settings from './src/settings/Settings';
+import {DEFAULT_SETTINGS} from './src/settings/DefaultSettings';
 
 export default class ChordLyrics extends Plugin {
 
-	// TODO Fix
-	settings: ChordLyricsSettings;
-
+	private settings: Settings = Object.assign({});
 	private readonly CODE_BLOCK_TRIGGER = "chordlyrics";
 
 	public async onload(): Promise<void> {
 		await this.loadSettings();
-		this.addSettingTab(new ChordLyricsSettingsTab(this.app, this));
+		this.addSettingTab(new SettingsTab(this.app, this));
 		this.applySettings();
 		this.registerMarkdownCodeBlockProcessor(this.CODE_BLOCK_TRIGGER, this.getProcessor());
 	}
 
-	private async loadSettings() {
-		this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
+	public getSettings(): Settings {
+		return this.settings;
 	}
 
-	async saveSettings() {
+	public async saveSettings(): Promise<void> {
 		await this.saveData(this.settings);
 		this.applySettings();
+	}
+
+	private async loadSettings(): Promise<void> {
+		this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
 	}
 
 	private getProcessor(): (text: string, html: HTMLElement) => void {
@@ -50,31 +40,15 @@ export default class ChordLyrics extends Plugin {
 		};
 	}
 
-	private applySettings() {
-		if (this.settings.enableCustomChordColor) {
-			document.documentElement.style.setProperty('--custom-chord-color', this.settings.customChordColor);
-		} else {
-			document.documentElement.style.removeProperty('--custom-chord-color');
-		}
-		if (this.settings.enableCustomBackgroundColor) {
-			document.documentElement.style.setProperty('--custom-background-color', this.settings.customBackgroundColor);
-		} else {
-			document.documentElement.style.removeProperty('--custom-background-color');
-		}
-		if (this.settings.enableCustomHeaderBackgroundColor) {
-			document.documentElement.style.setProperty('--custom-header-background-color', this.settings.customHeaderBackgroundColor);
-		} else {
-			document.documentElement.style.removeProperty('--custom-header-background-color');
-		}
-		if (this.settings.enableCustomHeaderTextColor) {
-			document.documentElement.style.setProperty('--custom-header-text-color', this.settings.customHeaderTextColor);
-		} else {
-			document.documentElement.style.removeProperty('--custom-header-text-color');
-		}
-		if (this.settings.enableCustomLyricsColor) {
-			document.documentElement.style.setProperty('--custom-lyrics-color', this.settings.customLyricsColor);
-		} else {
-			document.documentElement.style.removeProperty('--custom-lyrics-color');
-		}
+	private applySettings(): void {
+		const addProp = (name: string, val: string) => document.documentElement.style.setProperty(name, val);
+		const delProp = (name: string) => document.documentElement.style.removeProperty(name);
+		const apply = (enable: boolean, name: string, val: string) => enable ? addProp(name, val) : delProp(name);
+		const s = this.settings;
+		apply(s.enableCustomChordColor, '--custom-chord-color', s.customChordColor);
+		apply(s.enableCustomBackgroundColor, '--custom-background-color', s.customBackgroundColor);
+		apply(s.enableCustomHeaderBackgroundColor, '--custom-header-background-color', s.customHeaderBackgroundColor);
+		apply(s.enableCustomHeaderTextColor, '--custom-header-text-color', s.customHeaderTextColor);
+		apply(s.enableCustomLyricsColor, '--custom-lyrics-color', s.customLyricsColor);
 	}
 }

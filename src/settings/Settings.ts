@@ -1,4 +1,4 @@
-export default interface ChordLyricsSettings {
+export default interface Settings {
 	enableCustomChordColor: boolean,
 	customChordColor: string,
 	enableCustomBackgroundColor: boolean,
