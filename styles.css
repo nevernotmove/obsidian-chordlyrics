@@ -1,27 +1,32 @@
-
-
 .root {
 	background-color: var(--custom-background-color, var(--code-background)) !important;
-	white-space: pre;	
+	white-space: pre;
 	display: flex;
 	flex-direction: column;
-	gap: .2em;
 	font-family: var(--font-monospace);
 }
 
 .line {
 	display: flex;
 	flex-wrap: wrap;
+	margin: 0 1em;
 }
 
 .header {
+	--space-vert: var(--size-4-2);
+	--space-hor: var(--size-4-4);
+	--adjust-vert: calc(3 * var(--space-vert));
+	--adjust-hor: calc(-1 * var(--space-hor));
+	--adust-right: calc(-4 * var(--space-vert));
 	background-color: var(--custom-header-background-color, var(--background-primary)) !important;
 	color: var(--custom-header-text-color, inherit) !important;
-	padding: .5em;
-	margin-top: .5em;
-	width: 100%;
-	text-align: center;
-	font-size: 1.2em;
+	padding: .3em 0 .3em var(--space-hor);
+	margin: var(--adjust-vert) var(--adust-right) var(--space-vert) 0;
+	transform: translateX(var(--adjust-hor));
+	width: 150%;
+	text-align: left;
+	font-size: 1.1em;
+	border-radius: var(--radius-s);
 }
 
 .stack {
@@ -34,6 +39,13 @@
 
 .word {
 	color: var(--custom-lyrics-color, inherit) !important;
-	line-height: 90%;
+	line-height: 100%;
 }
 
+.line:first-child .header {
+	margin-top: var(--size-4-2);
+}
+
+.line:last-child {
+	margin-bottom: var(--size-4-2);
+}
