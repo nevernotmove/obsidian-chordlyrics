@@ -12,11 +12,11 @@ const chord = new Chunk(ChunkType.Chord, 'chord');
 const word = new Chunk(ChunkType.Word, 'word');
 const chordText = new Chunk(ChunkType.ChordWithText, 'chord', 'text');
 
-const emptyDiv = {tagName: 'div', content: '', classList: ['word']};
-const headerDiv = {tagName: 'div', content: 'header', classList: ['header']};
-const chordDiv = {tagName: 'div', content: 'chord', classList: ['chord', 'cm-strong']};
-const wordDiv = {tagName: 'div', content: 'word', classList: ['word']};
-const chordTextDiv = {tagName: 'div', content: undefined, classList: ['stack']};
+const emptyDiv = {tagName: 'div', content: '', classList: ['chordlyrics-word']};
+const headerDiv = {tagName: 'div', content: 'header', classList: ['chordlyrics-header']};
+const chordDiv = {tagName: 'div', content: 'chord', classList: ['chordlyrics-chord', 'cm-strong']};
+const wordDiv = {tagName: 'div', content: 'word', classList: ['chordlyrics-word']};
+const chordTextDiv = {tagName: 'div', content: undefined, classList: ['chordlyrics-stack']};
 
 describe('createHtml', () => {
 
@@ -57,8 +57,8 @@ describe('createHtml', () => {
 				expect(actual.classList.length).toBe(1);
 			});
 
-			it(`has class 'root'`, () => {
-				expect(actual.classList.contains('root')).toBeTruthy();
+			it(`has class 'chordlyrics-root'`, () => {
+				expect(actual.classList.contains('chordlyrics-root')).toBeTruthy();
 			});
 
 			const children = expected.length > 1 ? 'lines' : 'line';
@@ -86,8 +86,8 @@ describe('createHtml', () => {
 					expect(actual.classList.length).toBe(1);
 				});
 
-				it(`has class 'line'`, () => {
-					expect(actualLine.classList.contains('line')).toBeTruthy();
+				it(`has class 'chordlyrics-line'`, () => {
+					expect(actualLine.classList.contains('chordlyrics-line')).toBeTruthy();
 				});
 
 				const children = actualLine.children.length > 1 ? 'children' : 'child';
@@ -122,7 +122,7 @@ describe('createHtml', () => {
 							});
 						}
 
-						if (actualChild.classList.contains('stack')) {
+						if (actualChild.classList.contains('chordlyrics-stack')) {
 							it(`has 2 children`, () => {
 								expect(actualChild.children.length).toBe(2);
 							});
@@ -151,16 +151,16 @@ describe('createHtml', () => {
 								expect(actualChild.children[1].classList.length).toBe(1);
 							});
 
-							it(`child 1 has class 'chord'`, () => {
-								expect(actualChild.children[0].classList.contains('chord')).toBeTruthy();
+							it(`child 1 has class 'chordlyrics-chord'`, () => {
+								expect(actualChild.children[0].classList.contains('chordlyrics-chord')).toBeTruthy();
 							});
 
 							it(`child 1 has class 'cm-strong'`, () => {
 								expect(actualChild.children[0].classList.contains('cm-strong')).toBeTruthy();
 							});
 
-							it(`child 2 has class 'word'`, () => {
-								expect(actualChild.children[1].classList.contains('word')).toBeTruthy();
+							it(`child 2 has class 'chordlyrics-word'`, () => {
+								expect(actualChild.children[1].classList.contains('chordlyrics-word')).toBeTruthy();
 							});
 
 							it(`child 1 has content ${chordText.content}`, () => {

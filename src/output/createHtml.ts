@@ -12,15 +12,15 @@ const div = (children: Node[], ...classes: string[]): HTMLElement => el('div', c
 
 const text = (content: string): Text => document.createTextNode(content);
 
-const stack = (chord: HTMLElement, text: HTMLElement): HTMLElement => div([chord, text], 'stack');
+const stack = (chord: HTMLElement, text: HTMLElement): HTMLElement => div([chord, text], 'chordlyrics-stack');
 
-const chord = (content: string): HTMLElement => div([text(content)], 'chord', 'cm-strong');
+const chord = (content: string): HTMLElement => div([text(content)], 'chordlyrics-chord', 'cm-strong');
 
-const header = (content: string): HTMLElement => div([text(content)], 'header');
+const header = (content: string): HTMLElement => div([text(content)], 'chordlyrics-header');
 
-const word = (content: string): HTMLElement => div([text(content)], 'word');
+const word = (content: string): HTMLElement => div([text(content)], 'chordlyrics-word');
 
-const line = (children: HTMLElement[]): HTMLElement => div(children, 'line');
+const line = (children: HTMLElement[]): HTMLElement => div(children, 'chordlyrics-line');
 
 const chordWithText = (c: string, t: string): HTMLElement => stack(chord(c), word(t));
 
@@ -36,6 +36,6 @@ const chunks = (chunk: Chunk): HTMLElement => {
 
 const lines = (group: Chunk[]): HTMLElement => line(group.map(c => chunks(c)));
 
-const root = (lines: HTMLElement[]): HTMLElement => el('pre', lines, 'root');
+const root = (lines: HTMLElement[]): HTMLElement => el('pre', lines, 'chordlyrics-root');
 
 export default (groups: Chunk[][]): HTMLElement => root(groups.map(g => lines(g)));

@@ -4,7 +4,7 @@
 	--chordlyrics-space-l: calc(2 * var(--chordlyrics-space-m));
 }
 
-.root {
+.chordlyrics-root {
 	white-space: pre;
 	display: flex;
 	row-gap: var(--chordlyrics-space-s);
@@ -14,7 +14,7 @@
 	padding: var(--chordlyrics-space-l) !important;
 }
 
-.line {
+.chordlyrics-line {
 	display: flex;
 	margin: 0 var(--chordlyrics-space-l);
 	flex-wrap: wrap;
@@ -22,7 +22,7 @@
 	min-height: 1em;
 }
 
-.header {
+.chordlyrics-header {
 	--shift: calc(-1 * var(--chordlyrics-space-l));
 	--shift-adjust: calc(2 * var(--shift));
 	padding: var(--chordlyrics-space-m) var(--chordlyrics-space-l);
@@ -36,18 +36,18 @@
 	color: var(--chordlyrics-header-text-color, inherit) !important;
 }
 
-.stack {
+.chordlyrics-stack {
 	display: flex;
 	flex-direction: column;
 	gap: var(--chordlyrics-space-s);
 }
 
-.chord {
+.chordlyrics-chord {
 	color: var(--chordlyrics-chord-color, var(--strong-color, var(--accent-strong, var(--bold-color)))) !important;
 	line-height: 1;
 }
 
-.word {
+.chordlyrics-word {
 	line-height: 100%;
 	color: var(--chordlyrics-lyrics-color, inherit) !important;
 }
