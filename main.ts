@@ -44,11 +44,11 @@ export default class ChordLyrics extends Plugin {
 		const addProp = (name: string, val: string) => document.documentElement.style.setProperty(name, val);
 		const delProp = (name: string) => document.documentElement.style.removeProperty(name);
 		const apply = (enable: boolean, name: string, val: string) => enable ? addProp(name, val) : delProp(name);
-		const s = this.settings;
-		apply(s.enableCustomChordColor, '--custom-chord-color', s.customChordColor);
-		apply(s.enableCustomBackgroundColor, '--custom-background-color', s.customBackgroundColor);
-		apply(s.enableCustomHeaderBackgroundColor, '--custom-header-background-color', s.customHeaderBackgroundColor);
-		apply(s.enableCustomHeaderTextColor, '--custom-header-text-color', s.customHeaderTextColor);
-		apply(s.enableCustomLyricsColor, '--custom-lyrics-color', s.customLyricsColor);
+		const s = this.settings.customColors;
+		apply(s.enableChord, '--custom-chord-color', s.chord);
+		apply(s.enableBackground, '--custom-background-color', s.background);
+		apply(s.enableHeaderBackground, '--custom-header-background-color', s.headerBackground);
+		apply(s.enableHeaderText, '--custom-header-text-color', s.headerText);
+		apply(s.enableLyrics, '--custom-lyrics-color', s.lyrics);
 	}
 }

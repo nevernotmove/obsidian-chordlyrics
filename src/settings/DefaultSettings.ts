@@ -1,14 +1,16 @@
 import Settings from './Settings';
 
 export const DEFAULT_SETTINGS: Partial<Settings> = {
-	enableCustomChordColor: false,
-	customChordColor: '#000000',
-	enableCustomBackgroundColor: false,
-	customBackgroundColor: '#777777',
-	enableCustomHeaderBackgroundColor: false,
-	customHeaderBackgroundColor: '#ffffff',
-	enableCustomHeaderTextColor: false,
-	customHeaderTextColor: '#ffffff',
-	enableCustomLyricsColor: false,
-	customLyricsColor: '#ffffff',
+	customColors: {
+		enableChord: false,
+		chord: '#000000',
+		enableBackground: false,
+		background: '#777777',
+		enableHeaderBackground: false,
+		headerBackground: '#ffffff',
+		enableHeaderText: false,
+		headerText: '#ffffff',
+		enableLyrics: false,
+		lyrics: '#ffffff',
+	}
 };
