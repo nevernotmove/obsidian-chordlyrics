@@ -1,9 +1,9 @@
 .root {
-	background-color: var(--custom-background-color, var(--code-background)) !important;
 	white-space: pre;
 	display: flex;
 	flex-direction: column;
 	font-family: var(--font-monospace);
+	background-color: var(--chordlyrics-background-color, var(--code-background)) !important;
 }
 
 .line {
@@ -15,18 +15,18 @@
 .header {
 	--space-vert: var(--size-4-2);
 	--space-hor: var(--size-4-4);
-	--adjust-vert: calc(3 * var(--space-vert));
+	--header-top-margin: calc(3 * var(--space-vert));
 	--adjust-hor: calc(-1 * var(--space-hor));
 	--adust-right: calc(-4 * var(--space-vert));
-	background-color: var(--custom-header-background-color, var(--background-primary)) !important;
-	color: var(--custom-header-text-color, inherit) !important;
 	padding: .3em 0 .3em var(--space-hor);
-	margin: var(--adjust-vert) var(--adust-right) var(--space-vert) 0;
+	margin: var(--header-top-margin) var(--adust-right) var(--space-vert) 0;
 	transform: translateX(var(--adjust-hor));
 	width: 150%;
 	text-align: left;
 	font-size: 1.1em;
 	border-radius: var(--radius-s);
+	background-color: var(--chordlyrics-header-background-color, var(--background-primary)) !important;
+	color: var(--chordlyrics-header-text-color, inherit) !important;
 }
 
 .stack {
@@ -34,12 +34,12 @@
 }
 
 .chord {
-	color: var(--custom-chord-color, var(--strong-color, var(--accent-strong, var(--bold-color)))) !important;
+	color: var(--chordlyrics-chord-color, var(--strong-color, var(--accent-strong, var(--bold-color)))) !important;
 }
 
 .word {
-	color: var(--custom-lyrics-color, inherit) !important;
 	line-height: 100%;
+	color: var(--chordlyrics-lyrics-color, inherit) !important;
 }
 
 .line:first-child .header {
