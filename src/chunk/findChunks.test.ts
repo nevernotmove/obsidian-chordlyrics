@@ -36,6 +36,7 @@ describe('findChunks', () => {
 			${["Chord", "Text"]}    | ${["E7 A B C", "Hearts"]} | ${1}   | ${[2]}    | ${[["E7 A B ", "C"]]}           | ${[["Hearts ", " "]]}   | ${[ChunkType.ChordWithText]}
 			${["Chord", "Text"]}    | ${[" A", "Hearts"]}       | ${1}   | ${[1]}    | ${[[" A    "]]}                 | ${[["Hearts"]]}         | ${[ChunkType.ChordWithText]}
 			${["Chord", "Text"]}    | ${["Am", "Hi there"]}     | ${1}   | ${[2]}    | ${[["Am "]]}                    | ${[["Hi "], ["there"]]} | ${[ChunkType.ChordWithText]}
+			${["Chord", "Text"]}    | ${["A  D", "Hi there"]}   | ${1}   | ${[2]}    | ${[["A  "]]}                    | ${[["Hi "], ["there"]]} | ${[ChunkType.ChordWithText]}
 		`('for test $#',
 		({lineType, lineContents, groups, chunks, chunkContents, chunkContents2, chunkType}) => {
 
