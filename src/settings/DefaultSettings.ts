@@ -3,14 +3,14 @@ import Settings from './Settings';
 export const DEFAULT_SETTINGS: Partial<Settings> = {
 	customColors: {
 		enableChord: false,
-		chord: '#000000',
+		chord: '#ffffff',
 		enableBackground: false,
-		background: '#777777',
+		background: '#000000',
 		enableHeaderBackground: false,
-		headerBackground: '#ffffff',
+		headerBackground: '#222222',
 		enableHeaderText: false,
-		headerText: '#ffffff',
+		headerText: '#eeeeee',
 		enableLyrics: false,
-		lyrics: '#ffffff',
+		lyrics: '#dddddd'
 	}
 };
