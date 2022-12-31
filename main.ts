@@ -16,6 +16,7 @@ export default class ChordLyrics extends Plugin {
 		this.addSettingTab(new SettingsTab(this.app, this));
 		this.applySettings();
 		this.registerMarkdownCodeBlockProcessor(this.CODE_BLOCK_TRIGGER, this.getProcessor());
+		console.log(`Chord Lyrics: version ${this.manifest.version} (requires obsidian ${this.manifest.minAppVersion})`);
 	}
 
 	public getSettings(): Settings {
