@@ -6,6 +6,7 @@ This  plugin adds the ability to **display chords over lyrics** to [Obsidian](ht
 - Basic line wrapping on smaller screens while maintaining chord / lyrics relationship
 - Automatically detects most chord / lyrics lines
 - Ability to display a section header (e.g. *chorus* or *verse*)
+- Customizable colors
 
 ## Examples
 These small examples help you to quickly get going.
