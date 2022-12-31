@@ -21,13 +21,13 @@ function findChunks(line1: string, line1Indices: number[], line2: string, line2I
 	let index2 = line2Indices.shift();
 	while (index1 != undefined || index2 != undefined) {
 		if (index1 != undefined && (index2 == undefined || index1 <= index2)) {
-			if (cutPossible(line2, index1)) {
+			if (cutPossible(line2, index1, lastCut)) {
 				chunks.push(cut(lastCut, index1, line1, line2));
 				lastCut = index1;
 			}
 			index1 = line1Indices.shift();
 		} else if (index2 != undefined) {
-			if (cutPossible(line1, index2)) {
+			if (cutPossible(line1, index2, lastCut)) {
 				chunks.push(cut(lastCut, index2, line1, line2));
 				lastCut = index2;
 			}
@@ -45,7 +45,8 @@ function matchLengthWithWhitespace(chordLine: string, textLine: string) {
 	return [chordLine, textLine];
 }
 
-function cutPossible(str: string, index: number): boolean {
+function cutPossible(str: string, index: number, lastCutIndex: number): boolean {
+	if (index === lastCutIndex) return false;
 	const charLeftOfCut = str.charAt(index - 1);
 	const charRightOfCut = str.charAt(index);
 	return index !== 0 && (charLeftOfCut === " " || charRightOfCut === " ");
