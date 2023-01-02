@@ -9,7 +9,7 @@
 		"version": "node version-bump.mjs && git add manifest.json versions.json",
 		"test": "jest"
 	},
-	"keywords": [],
+	"keywords": ["music", "chords", "lyrics", "obsidian", "plugin"],
 	"author": "nevernotmove",
 	"license": "MIT",
 	"devDependencies": {
