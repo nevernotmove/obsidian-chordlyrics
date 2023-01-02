@@ -1,6 +1,6 @@
 export enum LineType {
-	Chord,
-	Text,
-	Empty,
-	Header,
+    Chord,
+    Text,
+    Empty,
+    Header,
 }

@@ -2,10 +2,10 @@ import {Chunk} from "../chunk/Chunk";
 import {ChunkType} from "../chunk/ChunkType";
 
 const el = (tag: string, children: Node[], ...classes: string[]): HTMLElement => {
-	const el = document.createElement(tag);
-	el.append(...children);
-	classes.forEach(c => el.classList.add(c));
-	return el;
+    const el = document.createElement(tag);
+    el.append(...children);
+    classes.forEach(c => el.classList.add(c));
+    return el;
 };
 
 const div = (children: Node[], ...classes: string[]): HTMLElement => el('div', children, ...classes);
@@ -25,13 +25,18 @@ const line = (children: HTMLElement[]): HTMLElement => div(children, 'chordlyric
 const chordWithText = (c: string, t: string): HTMLElement => stack(chord(c), word(t));
 
 const chunks = (chunk: Chunk): HTMLElement => {
-	switch (chunk.chunkType) {
-		case ChunkType.Empty: return word(chunk.content);
-		case ChunkType.Header: return header(chunk.content);
-		case ChunkType.Word: return word(chunk.content);
-		case ChunkType.Chord: return chord(chunk.content);
-		case ChunkType.ChordWithText: return chordWithText(chunk.content, chunk.content2);
-	}
+    switch (chunk.chunkType) {
+        case ChunkType.Empty:
+            return word(chunk.content);
+        case ChunkType.Header:
+            return header(chunk.content);
+        case ChunkType.Word:
+            return word(chunk.content);
+        case ChunkType.Chord:
+            return chord(chunk.content);
+        case ChunkType.ChordWithText:
+            return chordWithText(chunk.content, chunk.content2);
+    }
 }
 
 const lines = (group: Chunk[]): HTMLElement => line(group.map(c => chunks(c)));
