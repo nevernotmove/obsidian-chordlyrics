@@ -32,7 +32,7 @@ export class SettingsTab extends PluginSettingTab {
                 );
         };
 
-        let {containerEl} = this;
+        const {containerEl} = this;
         containerEl.empty();
         const s = this.plugin.getSettings().customColors;
 
