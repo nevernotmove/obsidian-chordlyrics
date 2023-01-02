@@ -1,53 +1,53 @@
 :root {
-	--chordlyrics-space-s: .3em;
-	--chordlyrics-space-m: calc(1.3 * var(--chordlyrics-space-s));
-	--chordlyrics-space-l: calc(2 * var(--chordlyrics-space-m));
+    --chordlyrics-space-s: .3em;
+    --chordlyrics-space-m: calc(1.3 * var(--chordlyrics-space-s));
+    --chordlyrics-space-l: calc(2 * var(--chordlyrics-space-m));
 }
 
 .chordlyrics-root {
-	white-space: pre;
-	display: flex;
-	row-gap: var(--chordlyrics-space-s);
-	flex-direction: column;
-	font-family: var(--font-monospace);
-	background-color: var(--chordlyrics-background-color, var(--code-background)) !important;
-	padding: var(--chordlyrics-space-l) !important;
+    white-space: pre;
+    display: flex;
+    row-gap: var(--chordlyrics-space-s);
+    flex-direction: column;
+    font-family: var(--font-monospace);
+    background-color: var(--chordlyrics-background-color, var(--code-background)) !important;
+    padding: var(--chordlyrics-space-l) !important;
 }
 
 .chordlyrics-line {
-	display: flex;
-	margin: 0 var(--chordlyrics-space-l);
-	flex-wrap: wrap;
-	row-gap: var(--chordlyrics-space-l);
-	min-height: 1em;
+    display: flex;
+    margin: 0 var(--chordlyrics-space-l);
+    flex-wrap: wrap;
+    row-gap: var(--chordlyrics-space-l);
+    min-height: 1em;
 }
 
 .chordlyrics-header {
-	--shift: calc(-1 * var(--chordlyrics-space-l));
-	--shift-adjust: calc(2 * var(--shift));
-	padding: var(--chordlyrics-space-m) var(--chordlyrics-space-l);
-	transform: translateX(var(--shift));
-	margin-right: var(--shift-adjust);
-	width: 150%;
-	text-align: left;
-	font-size: 1.1em;
-	border-radius: var(--radius-s);
-	background-color: var(--chordlyrics-header-background-color, var(--background-primary)) !important;
-	color: var(--chordlyrics-header-text-color, inherit) !important;
+    --shift: calc(-1 * var(--chordlyrics-space-l));
+    --shift-adjust: calc(2 * var(--shift));
+    padding: var(--chordlyrics-space-m) var(--chordlyrics-space-l);
+    transform: translateX(var(--shift));
+    margin-right: var(--shift-adjust);
+    width: 150%;
+    text-align: left;
+    font-size: 1.1em;
+    border-radius: var(--radius-s);
+    background-color: var(--chordlyrics-header-background-color, var(--background-primary)) !important;
+    color: var(--chordlyrics-header-text-color, inherit) !important;
 }
 
 .chordlyrics-stack {
-	display: flex;
-	flex-direction: column;
-	gap: var(--chordlyrics-space-s);
+    display: flex;
+    flex-direction: column;
+    gap: var(--chordlyrics-space-s);
 }
 
 .chordlyrics-chord {
-	color: var(--chordlyrics-chord-color, var(--strong-color, var(--accent-strong, var(--bold-color)))) !important;
-	line-height: 1;
+    color: var(--chordlyrics-chord-color, var(--strong-color, var(--accent-strong, var(--bold-color)))) !important;
+    line-height: 1;
 }
 
 .chordlyrics-word {
-	line-height: 100%;
-	color: var(--chordlyrics-lyrics-color, inherit) !important;
+    line-height: 100%;
+    color: var(--chordlyrics-lyrics-color, inherit) !important;
 }

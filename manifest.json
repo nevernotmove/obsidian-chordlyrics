@@ -1,10 +1,10 @@
 {
-	"id": "chord-lyrics",
-	"name": "Chord Lyrics",
-	"version": "0.3.0",
-	"minAppVersion": "1.1.9",
-	"description": "Display chord names over lyrics. Supports line wrapping, section headers, auto-detection of lines and custom colors.",
-	"author": "nevernotmove",
-	"authorUrl": "https://obsidian.md",
-	"isDesktopOnly": false
+    "id": "chord-lyrics",
+    "name": "Chord Lyrics",
+    "version": "0.3.0",
+    "minAppVersion": "1.1.9",
+    "description": "Display chord names over lyrics. Supports line wrapping, section headers, auto-detection of lines and custom colors.",
+    "author": "nevernotmove",
+    "authorUrl": "https://obsidian.md",
+    "isDesktopOnly": false
 }
