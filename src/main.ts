@@ -1,10 +1,10 @@
 import {Plugin} from 'obsidian';
-import findLines from "./src/line/findLines";
-import findChunks from "./src/chunk/findChunks";
-import createHtml from "./src/output/createHtml";
-import {SettingsTab} from './src/settings/SettingsTab';
-import Settings from './src/settings/Settings';
-import {DEFAULT_SETTINGS} from './src/settings/DefaultSettings';
+import findLines from "./line/findLines";
+import findChunks from "./chunk/findChunks";
+import createHtml from "./output/createHtml";
+import {SettingsTab} from './settings/SettingsTab';
+import Settings from './settings/Settings';
+import {DEFAULT_SETTINGS} from './settings/DefaultSettings';
 
 export default class ChordLyrics extends Plugin {
 

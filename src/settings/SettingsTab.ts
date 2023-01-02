@@ -1,5 +1,5 @@
 import {App, PluginSettingTab, Setting} from "obsidian";
-import ChordLyrics from '../../main';
+import ChordLyrics from '../main';
 
 export class SettingsTab extends PluginSettingTab {
 

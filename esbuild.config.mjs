@@ -15,7 +15,7 @@ esbuild.build({
 	banner: {
 		js: banner,
 	},
-	entryPoints: ['main.ts'],
+	entryPoints: ['src/main.ts'],
 	bundle: true,
 	external: [
 		'obsidian',
@@ -35,8 +35,8 @@ esbuild.build({
 	format: 'cjs',
 	watch: !prod,
 	target: 'es2018',
-	logLevel: "info",
+	logLevel: 'info',
 	sourcemap: prod ? false : 'inline',
 	treeShaking: true,
-	outfile: 'main.js',
+	outdir: 'build',
 }).catch(() => process.exit(1));
