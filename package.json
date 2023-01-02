@@ -10,6 +10,7 @@
 		"test": "jest"
 	},
 	"keywords": ["music", "chords", "lyrics", "obsidian", "plugin"],
+	"homepage": "https://github.com/nevernotmove/obsidian-chordlyrics",
 	"author": "nevernotmove",
 	"license": "MIT",
 	"devDependencies": {
