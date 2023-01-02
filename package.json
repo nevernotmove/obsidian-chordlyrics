@@ -11,6 +11,9 @@
 	},
 	"keywords": ["music", "chords", "lyrics", "obsidian", "plugin"],
 	"homepage": "https://github.com/nevernotmove/obsidian-chordlyrics",
+	"bugs": {
+		"url": "https://github.com/nevernotmove/obsidian-chordlyrics/issues"
+	},
 	"author": "nevernotmove",
 	"license": "MIT",
 	"devDependencies": {
