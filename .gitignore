@@ -1,7 +1,7 @@
 # vscode
 .vscode 
 
-# Intellij
+# Jetbrains
 *.iml
 .idea
 
