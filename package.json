@@ -4,9 +4,9 @@
     "description": "Display chord names over lyrics. Supports line wrapping, section headers and auto-detection.",
     "main": "main.js",
     "scripts": {
-        "dev": "node esbuild.config.mjs",
-        "build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production && node assemble.mjs",
-        "version": "node version-bump.mjs && git add manifest.json versions.json",
+        "dev": "node script/esbuild.config.mjs",
+        "build": "tsc -noEmit -skipLibCheck && node script/esbuild.config.mjs production && node script/assemble.mjs",
+        "version": "node script/version-bump.mjs && git add manifest.json versions.json",
         "test": "jest"
     },
     "keywords": [
