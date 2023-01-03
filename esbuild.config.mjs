@@ -1,5 +1,4 @@
 import esbuild from "esbuild";
-import process from "process";
 import clean from "esbuild-plugin-clean";
 
 const prod = (process.argv[2] === 'production');
