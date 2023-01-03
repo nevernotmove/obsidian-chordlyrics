@@ -13,7 +13,7 @@ function copyBuild() {
     console.log("Testing if", dstDir, "directory exists");
     if (!fs.existsSync(dstDir)) {
         console.log("It does not exist, creating", dstDir);
-        fs.mkdirSync(dstDir);
+        fs.mkdirSync(dstDir, {recursive: true});
     }
 
     console.log("Getting all files to copy");
