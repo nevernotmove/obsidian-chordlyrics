@@ -17,6 +17,9 @@ build
 # Obsidian plugin save data
 data.json
 
+# Obsidian test vault
+/test-vault/.obsidian
+
 # Exclude macOS Finder (System Explorer) View States
 .DS_Store
 
