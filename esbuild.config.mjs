@@ -1,5 +1,6 @@
 import esbuild from "esbuild";
 import process from "process";
+import clean from "esbuild-plugin-clean";
 
 const prod = (process.argv[2] === 'production');
 
@@ -10,7 +11,7 @@ esbuild.build({
     entryPoints: ['src/main.ts'],
     bundle: true,
     external: [
-        'obsidian'
+        'obsidian',
     ],
     format: 'cjs',
     watch: !prod,
@@ -19,4 +20,9 @@ esbuild.build({
     sourcemap: prod ? false : 'inline',
     treeShaking: true,
     outdir: 'build',
+    plugins: [
+        clean({
+            cleanOnStartPatterns: ['./build'],
+        }),
+    ],
 }).catch(() => process.exit(1));
