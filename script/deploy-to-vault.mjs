@@ -5,28 +5,35 @@ function copyBuild() {
     const srcDir = '../build/';
     const manifest = JSON.parse(readFileSync("../manifest.json", "utf8"));
     const {id} = manifest;
-    const dstDir = `../test-vault/.obsidian/plugins/${id}`;
+    const dstDirBase = '../test-vault/.obsidian';
+    const dstDir = dstDirBase + `/plugins/${id}`;
 
-    console.log("Copying from", srcDir, "to", dstDir);
+    console.info("Deleting previous data at", dstDirBase);
+    fs.rmSync(dstDirBase, {recursive: true, force: true});
 
-    // Create destination directory if it doesn't exist
-    console.log("Testing if", dstDir, "directory exists");
+    console.info("Wanting to copy from", srcDir, "to", dstDir);
+
+    console.info("Testing if", dstDir, "directory exists");
     if (!fs.existsSync(dstDir)) {
-        console.log("It does not exist, creating", dstDir);
+        console.info("It does not exist, creating", dstDir);
         fs.mkdirSync(dstDir, {recursive: true});
     }
 
-    console.log("Getting all files to copy");
+    console.info("Getting all files to copy");
     const filesToCopy = fs.readdirSync(srcDir);
-    console.log("About to copy the following files", filesToCopy);
+    console.info("About to copy the following files", filesToCopy, "from", srcDir);
 
-    // Copy build into destination directory
     filesToCopy.forEach((file) => {
-        fs.copyFileSync(srcDir + file, `${dstDir}/${file}`);
-        console.log(`Copied ${file} to ${dstDir}`);
+        fs.copyFileSync(`${srcDir}/${file}`, `${dstDir}/${file}`);
+        console.info(`Copied ${file} to ${dstDir}`);
     });
 }
 
-// TODO Check out hot reload plugin
+async function openObsidian() {
+    const uri = 'obsidian://open?vault=test-vault&file=chord-lyrics';
+    console.info(`Opening Obsidian (${uri})`);
+    await open(uri);
+}
+
 copyBuild();
-await open('obsidian://open?vault=test-vault&file=chord-lyrics');
+openObsidian().then(); // TODO You can be better
