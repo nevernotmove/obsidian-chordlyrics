@@ -2,10 +2,10 @@ import open from "open";
 import fs, {readFileSync} from "fs";
 
 function copyBuild() {
-    const srcDir = '../build/';
-    const manifest = JSON.parse(readFileSync("../manifest.json", "utf8"));
+    const srcDir = 'build/';
+    const manifest = JSON.parse(readFileSync("manifest.json", "utf8"));
     const {id} = manifest;
-    const dstDirBase = '../test-vault/.obsidian';
+    const dstDirBase = 'test-vault/.obsidian';
     const dstDir = dstDirBase + `/plugins/${id}`;
 
     console.info("Deleting previous data at", dstDirBase);
@@ -34,6 +34,9 @@ async function openObsidian() {
     console.info(`Opening Obsidian (${uri})`);
     await open(uri);
 }
+
+// Change to project dir script is started in script folder
+if (process.cwd().endsWith('script')) process.chdir("../");
 
 copyBuild();
 openObsidian().then(); // TODO You can be better
