@@ -11,4 +11,7 @@ export default interface Settings {
         enableLyrics: boolean,
         lyrics: string,
     };
+    chords: {
+        lyricsOnly: boolean
+    }
 }

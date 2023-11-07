@@ -17,9 +17,10 @@ function getTypedLine(line: string): Line {
     if (trimmed.endsWith("%t")) return new Line(line.trimEnd().substring(0, line.length - 2), LineType.Text);
 
     // Chord line
-    const numSpaces = line.split(" ").length - 1;
+    const splittedLength = line.split(" ").length;
+    const numSpaces = splittedLength - 1;
     const spaceToContentRatio = numSpaces / line.length;
-    if (spaceToContentRatio > .3) return new Line(line, LineType.Chord);
+    if (spaceToContentRatio > .3 || spaceToContentRatio == 0) return new Line(line, LineType.Chord);
 
     // Text line
     return new Line(line, LineType.Text);
