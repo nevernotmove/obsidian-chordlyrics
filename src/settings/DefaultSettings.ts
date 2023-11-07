@@ -12,5 +12,8 @@ export const DEFAULT_SETTINGS: Partial<Settings> = {
         headerText: '#eeeeee',
         enableLyrics: false,
         lyrics: '#dddddd'
+    },
+    chords: {
+        lyricsOnly: true
     }
 };
