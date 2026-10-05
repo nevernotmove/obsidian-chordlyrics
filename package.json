@@ -37,5 +37,8 @@
         "ts-jest": "^29.0.3",
         "tslib": "^2.4.1",
         "typescript": "^4.9.4"
+    },
+    "allowScripts": {
+        "esbuild@0.16.17": true
     }
 }
