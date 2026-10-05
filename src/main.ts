@@ -8,7 +8,7 @@ import {DEFAULT_SETTINGS} from './settings/DefaultSettings';
 
 export default class ChordLyrics extends Plugin {
 
-    private settings: Settings = Object.assign({});
+    private chordLyricsSettings: Settings = Object.assign({});
     private readonly CODE_BLOCK_TRIGGER = "chordlyrics";
 
     public async onload(): Promise<void> {
@@ -20,16 +20,16 @@ export default class ChordLyrics extends Plugin {
     }
 
     public getSettings(): Settings {
-        return this.settings;
+        return this.chordLyricsSettings;
     }
 
     public async saveSettings(): Promise<void> {
-        await this.saveData(this.settings);
+        await this.saveData(this.chordLyricsSettings);
         this.applySettings();
     }
 
     private async loadSettings(): Promise<void> {
-        this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
+        this.chordLyricsSettings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
     }
 
     private getProcessor(): (text: string, html: HTMLElement) => void {
@@ -45,7 +45,7 @@ export default class ChordLyrics extends Plugin {
         const addProp = (name: string, val: string) => document.documentElement.style.setProperty(name, val);
         const delProp = (name: string) => document.documentElement.style.removeProperty(name);
         const apply = (enable: boolean, name: string, val: string) => enable ? addProp(name, val) : delProp(name);
-        const s = this.settings.customColors;
+        const s = this.chordLyricsSettings.customColors;
         apply(s.enableChord, '--chordlyrics-chord-color', s.chord);
         apply(s.enableBackground, '--chordlyrics-background-color', s.background);
         apply(s.enableHeaderBackground, '--chordlyrics-header-background-color', s.headerBackground);
