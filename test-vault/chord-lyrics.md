@@ -26,3 +26,9 @@ A D A7 D        F- D   A7      D
 Thank you for checking out the plugin
 ```
 
+```chordlyrics  
+Fm7
+Some times chords lines don't have blank spaces
+A
+Know these chords were made through the ages
+```

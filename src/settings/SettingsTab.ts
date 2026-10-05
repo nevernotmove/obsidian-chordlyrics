@@ -1,4 +1,5 @@
 import {App, PluginSettingTab, Setting} from "obsidian";
+import { text } from "stream/consumers";
 import ChordLyrics from '../main';
 
 export class SettingsTab extends PluginSettingTab {
@@ -34,12 +35,24 @@ export class SettingsTab extends PluginSettingTab {
 
         const {containerEl} = this;
         containerEl.empty();
-        const s = this.plugin.getSettings().customColors;
+        const s = this.plugin.getSettings();
 
-        add('chord', s.enableChord, (e: boolean) => s.enableChord = e, s.chord, (c: string) => s.chord = c);
-        add('background', s.enableBackground, (e: boolean) => s.enableBackground = e, s.background, (c: string) => s.background = c);
-        add('header background', s.enableHeaderBackground, (e: boolean) => s.enableHeaderBackground = e, s.headerBackground, (c: string) => s.headerBackground = c);
-        add('header text', s.enableHeaderText, (e: boolean) => s.enableHeaderText = e, s.headerText, (c: string) => s.headerText = c);
-        add('lyrics', s.enableLyrics, (e: boolean) => s.enableLyrics = e, s.lyrics, (c: string) => s.lyrics = c);
+        new Setting(containerEl)
+                .setName(`Lyrics only`)
+                .setDesc(`Hide the chords for better reading`)
+                .setTooltip(`This can be useful when you already know the chords but not the lyrics.`)
+                .addToggle(toggle => toggle
+                    .setValue(s.chords.lyricsOnly ?? false)
+                    .onChange(async (value) => {
+                        s.chords.lyricsOnly = value;
+                        await this.plugin.saveSettings();
+                    })
+                );
+
+        add('chord', s.customColors.enableChord, (e: boolean) => s.customColors.enableChord = e, s.customColors.chord, (c: string) => s.customColors.chord = c);
+        add('background', s.customColors.enableBackground, (e: boolean) => s.customColors.enableBackground = e, s.customColors.background, (c: string) => s.customColors.background = c);
+        add('header background', s.customColors.enableHeaderBackground, (e: boolean) => s.customColors.enableHeaderBackground = e, s.customColors.headerBackground, (c: string) => s.customColors.headerBackground = c);
+        add('header text', s.customColors.enableHeaderText, (e: boolean) => s.customColors.enableHeaderText = e, s.customColors.headerText, (c: string) => s.customColors.headerText = c);
+        add('lyrics', s.customColors.enableLyrics, (e: boolean) => s.customColors.enableLyrics = e, s.customColors.lyrics, (c: string) => s.customColors.lyrics = c);
     }
 }

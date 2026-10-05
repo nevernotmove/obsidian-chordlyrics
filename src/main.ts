@@ -51,5 +51,7 @@ export default class ChordLyrics extends Plugin {
         apply(s.enableHeaderBackground, '--chordlyrics-header-background-color', s.headerBackground);
         apply(s.enableHeaderText, '--chordlyrics-header-text-color', s.headerText);
         apply(s.enableLyrics, '--chordlyrics-lyrics-color', s.lyrics);
+        const cs = this.settings.chords;
+        apply(cs.lyricsOnly, '--chord-display', "none");
     }
 }
